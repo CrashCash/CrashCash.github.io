@@ -1,0 +1,117 @@
+<html>
+  <title>Automated garage door controller</title>
+  <body>
+    <!--
+    <a href="" target="_blank">
+    -->
+    <img src="diagram.gif">
+    <h3>Introduction</h3>
+    <p>I ride a motorcycle, and garage door remotes don't last very long out in the elements, even if you can find a good place to mount one on your bike and
+      you're willing to put up with the hassle. There's a device you can connect to your high-beam switch called a "Flash2Pass", but I had lots of issues with
+      mine.</p>
+    <p>I developed a system to open the door "hands-off" as I rode up, and to automatically close it behind me. It also closes it behind me when I leave.</p>
+    <p>It uses a <a href="http://www.raspberrypi.org/" target="_blank">Raspberry Pi</a> with the
+      <a href="http://www.piface.org.uk/products/piface_digital/" target="_blank">PiFace Digital I/O board</a>. The Pi is attached to the internet. It uses SSL
+      mutual authentication to control who can open the door, and keep hackers out. Only the Android app with the properly signed certificate can do it. I can
+      deploy the app and certificate to multiple phones.</p>
+    <img src="holder.jpg" style="float:right;">
+    <p>The user starts the app either via the normal method, or by pressing a Bluetooth button. I have a
+      <a href="http://www.satechi.net/index.php/satechi-bluetooth-button-series-home-button" target="_blank">Satechi "Home" button</a> mounted on the side of my
+      helmet with a <a href="https://www.shapeways.com/product/G9UNHZ3VB/bluetooth-button-mount" target="_blank">3D-printed carrier</a> that I designed.
+      (Originally, I wanted to be able to put a Bluetooth Low Energy beacon on the bike, and the app would see it and start up when I got on, but none of the
+      BLE beacons I tried were reliable. I also tried an NFC tag on my helmet, but tapping the phone on the helmet proved tedious.)</p>
+    <p>One note about the button: It's an Android "Home" button, and I'm not able to do much with this button. I can only tell if it connects. I also can't
+      disconnect a particular Bluetooth device. I can only turn off Bluetooth completely, to force it to disconnect. I do this so it has to reconnect and I can
+      detect it.</p>
+    <p>Another note about Bluetooth buttons: A lot of the cheap Chinese crap actually had to be turned on, before they could be used. This is pretty much
+    useless. The Satechi product just needs to be clicked, and it wakes up and communicates with the phone.</p>
+    <p>Of course, my phone is rooted so it can turn on/off the GPS & cell data as needed. Unfortunately, the hacks to do this are different for each Android OS
+      version, so my app only runs on Marshmallow.</p>
+    <h3>Phone app cycle of operation</h3>
+    <img src="flowchart.png">
+    <h3>Code</h3>
+    <p>There's two pieces of code. One is the Android app. The source is published in my
+      <a href="https://github.com/CrashCash/GarageDoorApp" target="_blank">GitHub repository</a>.</p>
+    <p>Installing this app creates several application icons:</p>
+    <table borders="0">
+      <tr>
+        <td align="center" bgcolor="blue"><img src="app_main.gif" style="height:100px;"></td>
+        <td>The main application. Tap this icon to start monitoring the GPS.</td>
+      </tr>
+      <tr>
+        <td align="center" bgcolor="blue"><img src="app_settings.gif" style="height:100px;"></td>
+        <td>Screen to set up various user preferences.</td>
+      </tr>
+      <tr>
+        <td align="center" bgcolor="blue"><img src="app_stop.gif" style="height:100px;"></td>
+        <td>Stop the app and all the background services.</td>
+      </tr>
+      <tr>
+        <td align="center" bgcolor="blue"><img src="app_status.gif" style="height:100px;"></td>
+        <td>Show the status of the garage door, the beam sensor, and the back door.<br><br>
+          I can also open and close the door from this screen, and "arm" it so that it will close the door after the beam is broken.</td>
+      </tr>
+      <tr>
+        <td align="center" bgcolor="blue"><img src="app_toggle.gif" style="height:100px;"></td>
+        <td>When the main app is running, toggle it from closing the door afterwards, to not closing the door.</td>
+      </tr>
+    </table>
+    <p>The other is a server written in Java, running on the Raspberry Pi. The source is published in my
+      <a href="https://github.com/CrashCash/GarageDoorServer" target="_blank">GitHub repository</a>.</p>
+    <p>It understands several one-line commands:</p>
+    <p>ARM - If the garage door is open, start waiting for the beam to be broken.</p>
+    <p>CLOSE - If the garage door is open, close it.</p>
+    <p>OPEN - If the garage door is closed, open it.</p>
+    <p>OPENCLOSE - Open the garage door, and start waiting for the beam to be broken.</p>
+    <p>PING - Do nothing.</p>
+    <p>TOGGLE - Press the garage door button.</p>
+    <p>STATUS - Report status of garage door, back door, beam sensor, and if it's armed waiting for a beam break, in a line of the form "STATUS CLOSED CLOSED
+      CLEAR DISARMED". These lines are emitted every 30 seconds or when a status changes.
+    </p>
+    <h3>Setting up the Raspberry Pi</h3>
+    <p>I'm running Raspian Lite since I don't need any sort of GUI, and I just ssh in to manage it. I
+      <a href="http://without-systemd.org/wiki/index.php/How_to_remove_systemd_from_a_Debian_jessie/sid_installation" target="_blank">disabled systemd</a> and
+      use a SystemV-style init script to start the server at boot.</p>
+    <h3>Local network setup</h3>
+    <p>I assigned the Raspberry Pi a reserved DHCP address so it would stay at the same IP and a port could be forwarded to it.</p>
+    <p>I opened two ports in the firewall for external access and forwarded them to the Raspberry Pi's address. This lets the phone connect over the internet.</p>
+    <p>I had to determine the external (i.e. "WAN") IP address of my firewall, which is the address entered in the setup screen. The world sees my firewall at
+      this IP, so this is the address the phone needs to connect to.</p>
+    <table borders="0" width="100%">
+      <tr><td>
+          <img src="sensor.jpg" style="float:right;height:320px;width:278px;">
+          <h3>Sensing when you enter/exit the garage</h3>
+          <p>I use a Seco-Alarm <a href="http://seco-larm.com/E960Sb.htm" target="_blank">E-931-S35RRQ</a> beam-break sensor to detect when you enter and exit the
+            garage. It's mounted just inside the door on its own bracket, with the reflector mounted across the garage.</p>
+          <p>The sensor is weatherproof, smaller than a pack of cigarettes, and takes just about any source of power, AC or DC, from 12 volts to 240 volts. I use an
+            old orphaned wall wart.</p>
+          <p>It has a relay output, which you can hear click when you obstruct the beam. The status LED is amber for "clear" and red for "obstructed" and the
+            sensitivity is adjustable. This is connected to a digital PiFace input.</p>
+      </td></tr>
+    </table>
+    <h3>Connecting the Pi to the garage door opener</h3>
+    <p>This gets complicated.</p>
+    <p>There are a ton of sensors wired up, and each one has the sense wire and a ground wire. There's only one ground connection on the PiFace Digital board,
+      so I used a "ground block" to manage things. This is just a terminal block where all the terminals are connected together.</p>
+    <p>One of the relays on the PiFace board is connected to the opener simulating a button. This is what actually opens and closes the door.</p>
+    <p>The Pi is mounted on standoffs on a piece of corrugated plastic, which is fastened to the wall.</p>
+    <img src="wiring.jpg">
+    <h3>Sensing door position</h3>
+    <p>There are two <a href="https://en.wikipedia.org/wiki/Reed_switch" target="_blank">reed switches</a>, rather crudely mounted on a plastic plate, one at
+      each end of the opener rail. I added magnets to the rail slider to trigger these switches. This is how the Pi tells if the door is open or closed.</p>
+    <p>Note in the picture that there's an extra set of reed switches. These are used by the garage door motor itself to tell when it's reached the end of its
+      travel and should stop running. The original mechanism it used broke decades ago.</p>
+    <p>I also have a reed switch & magnet on the back door to the garage, so I can tell remotely if it's closed or not, in the status app.</p>
+    <img src="reed.gif">
+    <h3>Security</h3>
+    <p>Obviously the garage door needs to be secure. You need to keep people from "sniffing" the protocol and otherwise hacking things to gain entry.</p>
+    <p>It's protected by SSL mutual authentication, where the phone and the server each present a certificate to the other to prove it's authorized. This turned
+    out to be the hardest part of the project.</p>
+    <p>I generate two certificates (one for the server and one for the phone) and corresponding private keys. You can install the app and certificates on
+      multiple phones so they all have access. These certificate act as digital keys.</p>
+    <h3>Why don't I use the Google Play Geofencing API?</h3>
+    <p>It doesn't work. I tried all the tutorials and none of them ever triggered. Also, by doing my own code, I can control the GPS update rate and power
+      consumption, and ensure that it's closely monitoring things when I'm near home, so the door opens promptly, and I'm not sitting there waiting for the phone
+      to notice I'm home.</p>
+  </body>
+</html>

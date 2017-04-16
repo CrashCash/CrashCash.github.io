@@ -71,7 +71,7 @@
     <h3>Setting up the Raspberry Pi</h3>
     <p>I'm running Raspian Lite since I don't need any sort of GUI, and I just ssh in to manage it. I
       <a href="http://without-systemd.org/wiki/index.php/How_to_remove_systemd_from_a_Debian_jessie/sid_installation" target="_blank">disabled systemd</a> and
-      use a SystemV-style init script to start the server at boot.</p>
+      use a <a href="https://github.com/CrashCash/GarageDoorServerInit" target="_blank">SysV-style init script</a> to start the server at boot.</p>
     <h3>Local network setup</h3>
     <p>I assigned the Raspberry Pi a reserved DHCP address so it would stay at the same IP and a port could be forwarded to it.</p>
     <p>I opened two ports in the firewall for external access and forwarded them to the Raspberry Pi's address. This lets the phone connect over the internet.</p>

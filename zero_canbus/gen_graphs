@@ -1,0 +1,69 @@
+#!/usr/bin/python3
+# graph canbus dumps
+
+import os
+import sys
+import matplotlib.pyplot as plt
+
+# create subdirs
+for dir in ['bytes', 'AB', 'BA']:
+    os.makedirs('graphs/'+dir, exist_ok=True)
+
+# plot data
+def plot(t, x):
+    print(t)
+    plt.figure(figsize=(23.5, 14))
+    plt.title(t)
+    plt.plot(x)
+    plt.grid()
+    t='graphs/'+t.replace(' ', '_')
+    t=t.replace(':', '-')
+    try:
+        plt.savefig(t+'.png', bbox_inches='tight', dpi=100)
+    except Exception as err:
+        # usually "OverflowError: In draw_path: Exceeded cell block limit"
+        print('plot error:', err.__class__.__name__, '-', err)
+    plt.close()
+
+# read file
+fn=sys.argv[1]
+lines=open(fn).readlines()
+
+# split into items
+items=list(x.split() for x in lines)
+
+# set of canbus IDs
+# IDs: ['080', '181', '188', '189', ...]
+ids=list(set(x[1] for x in items))
+ids.sort()
+
+# ignore these
+for i in ['080', '508', '509', '701']:
+    ids.remove(i)
+
+for id in ids:
+    print(id)
+    # list of just the data bytes
+    # data[0]: ['A8', '63', 'E3', '58', '0A', '00', '64', '00']
+    data=list(x[3:3+int(x[2][1])] for x in items if x[1] == id)
+
+    # iterate through all the data bytes for this ID
+    for i in range(len(data[0])):
+        # this is a list of the i'th byte for this ID
+        column=list(int(x[i], 16) for x in data)
+        if min(column) != max(column):
+            title='bytes/ID:'+id+' column:'+str(i)
+            plot(title, column)
+
+    # iterate through all the data words for this ID
+    for i in range(len(data[0])-1):
+        # this is a list least-significant-byte first (little-endian)
+        column=list(int(x[i], 16)+256*int(x[i+1], 16) for x in data)
+        if min(column) != max(column):
+            title='BA/ID:'+id+' column:'+str(i)
+            plot(title, column)
+
+            # this is a list most-significant-byte first (big-endian)
+            # column=list(256*int(x[i], 16)+int(x[i+1], 16) for x in data)
+            # title='AB/ID:'+id+' column:'+str(i)
+            # plot(title, column)

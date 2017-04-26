@@ -1,0 +1,58 @@
+<html>
+  <head>
+    <title>Installing a Bluetooth OBD-II dongle on a Zero Motorcycle</title>
+    <style>
+      li { margin-bottom: 10px; }
+    </style>
+  </head>
+  <body>
+    <h1>Installing a Bluetooth OBD-II dongle on a Zero Motorcycle</h1>
+    <h3>Introduction</h3>
+    <p>My Zero SR electric motorcycle broadcasts the current range on the CANBUS, and I have a <a href="../zero_canbus/index.html" target="_blank">page</a>
+      describing the format.</p>
+    <p>The CANBUS is available on the OBD-II diagnostic port, and there are small "dongles" that capture and filter this information, and transmit it over USB,
+      Wi-Fi, or Bluetooth. They all use an ELM327 chip, which has a standard programming API.</p>
+    <p>Unfortunately, Zero does not supply power to pin 16 as per the standard, so they don't work.</p>
+    <p>Making things even more difficult is the fact that the port is in a location where it's impossible to work with it.</p>
+    <h3>Selecting a dongle</h3>
+    <p>There are dozens of brands available on Amazon. Most of them are unsecure cheap Chinese knockoffs.</p>
+    <p>For example, I bought a "Kitbest", which has absolutely no security. Anyone standing nearby can pair with it and gain access to the internal systems of
+      the bike. It has no status or activity lights. It also has a counterfeit ELM327 chip, and announces a version number that ELM Electronics has never made,
+      plus it doesn't understand several of the standard API commands.</p>
+    <p>The dongle I selected was the ScanTool 427201 OBDLink LX Bluetooth. It has good security, where you must press a physical button and it will only pair
+      for a limited time. It has status and activity LEDs to help debug issues. Another feature is a sleep function, where it powers down to avoid draining the
+      vehicle's battery. This isn't quite so important in our application since it will be on a switched power supply.</p>
+    <h3>Relocating the OBD-II port</h3>
+    <p>Owners of 2017 and newer Zeros are lucky, as the port is now located under the seat. They might also have power on pin 16. You can visually tell if
+      there's a pin there or not. You can also see if the dongle lights up.</p>
+    <p>Older bikes have it located in an almost inaccessible location, and you need to move it in order to add the power pin. Here is the procedure I used:</p>
+    <ul>
+      <li>Remove the rear tire hugger.<br>
+        Remove 4 socket head bolts.<br>
+        Weapon of choice: 4mm ball-end hex key.</li>
+      <li>Loosen the left side passenger peg bracket and swing it down.<br>
+        Remove the top 13mm bolt and just loosen the bottom 13mm bolt.<br>
+        If you have saddlebag racks, remove the 10mm bolt & the top 5mm socket head, and swing the rack up out of the way.<br>
+        Weapons of choice: 3/8" ratchet, 10mm socket, 13mm socket, 13mm combo wrench, 5mm hex key.</li>
+      <li>Unbolt the OBD-II connector. Don't let the cap screws magically disappear.<br>
+        Weapons of choice: 3/8" ratchet, extra long 17" extension, 4mm long-reach ball-end hex socket.</li>
+      <li>You can now clip off the mounting ears with a pair of dikes, and duct tape it to the cable to make it as small as possible, so it'll fit through the
+        mess of cables.</li>
+      <li>Now ease the connector up the right side of the bike. I was fortunate to have a small cavity in the cables and wiring there.</li>
+    </ul>
+    <h3>Getting power to the port</h3>
+    <p>Order a pair of "Fotag" J1962 female OBD-II sockets from Amazon.
+      <a href="https://www.amazon.com/dp/B01ETRIDUI" target="_blank">https://www.amazon.com/dp/B01ETRIDUI</a></p>
+    <img src="OBD-II_socket.jpg">
+    <p>This the same connector as the stock one. You won't need the actual connector, but you will need one of the pins and one of the blue retainer clips.</p>
+    <p>This has an unusual pin retention design. Instead of the usual barbs on each pin, it has two blue clips that slide in to hold each row of pins. To insert
+      another pin, you'll need to pry out one of these clips from the stock connector, which will destroy it.</p>
+    <p>Strip about 1/4" from the end of a piece of 18-gauge wire, and crimp one of the pins to it.</p>
+    <p>Insert the pin into position #16 in the proper orientation (see photo)</p>
+    <img src="pin.jpg">
+    <p>Slide a new blue clip in, until it locks into place.</p>
+    <p>Hook the other end of the wire to the lowest amperage fusebox line using a Scotchlok tap.</p>
+    <img src="img_1494.jpg"><img src="img_1488.jpg">
+    <p>I would have much rather used the accessory power, but that's a different isolated circuit.</p>
+  </body>
+</html>

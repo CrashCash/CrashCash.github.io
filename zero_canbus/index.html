@@ -147,45 +147,11 @@
       and I could then mount the phone on the bike with the RAM mount and ride down the road.<br>
       This is also an example of how to fetch and decode CANBUS data in a Python script.</p>
     <p>There is different traffic when the bike is charging, but I didn't look at that much.</p>
-    <h3>Known info for each PID</h3>
-    <hr>
-    <b>0x080</b><br>
-    No data bytes. Some sort of timing/sync?<br>
-    <hr>
-    <b>0x240</b><br>
-    Current riding mode == byte 0<br>
-    0x85 (133) (binary 1000 0101) Sport<br>
-    0x89 (137) (binary 1000 1001) Eco<br>
-    0x91 (145) (binary 1001 0001) Custom<br>
-    I noticed this with cansniffer.<br><br>
-    Speed (km/hr) == (byte 2+256*byte 3)/100<br>
-    Used same procedure as range.<br>
-    <hr>
-    <b>0x281</b><br>
-    Motor temp (degrees C) == byte 6<br>
-    Used same procedure as range.<br>
-    Good thing I realized it's metric, because the C=(F-32)x5/9 crap would have killed me.<br>
-    <hr>
-    <b>0x340</b><br>
-    Motor revolutions (RPM) == byte 4+256*byte 5<br>
-    Used same procedure as range.<br><br>
-    Error readout on dash == byte 6<br>
-    0x00 (0)  No faults<br>
-    0x2C (44) Kill switch on<br>
-    0x2D (45) Kickstand down<br>
-    ...<br>
-    (See manual for complete list)<br>
-    One transmission for every error, so if there's 2 errors, there will be 2 0x340 frames.<br>
-    I noticed this with cansniffer.<br>
-    <hr>
-    <b>0x440</b><br>
-    This is a two-byte "word" value least-significant-byte first, in units of "10 meters"<br>
-    This tells me the architecture is metric and little-endian, which is valuable information.<br><br>
-    range (km) == (byte 4+256*byte 5)/100<br>
-    range (miles) == (byte 4+256*byte 5)/160.9<br><br>
-    The procedure I used to decode it:
+    <h3>How I figured out which bytes meant what values:</h3>
     <ol>
-      <li>I filmed the dashboard range display with my phone on several rides. I also ran candump.</li>
+      <li>The first thing I looked at was the range.<br>
+        I filmed the dashboard range display with my phone on several rides.<br>
+        I also ran candump on the Raspberry Pi.</li>
       <li>I pulled an image every second from the videos:<br>
         <code>ffmpeg -i input.mp4 -vf fps=1 out%05d.png</code></li>
       <li>I reduced this by hand to a text file with the range and the frame it changed using geeqie and emacs.<br>
@@ -201,21 +167,104 @@
         78.7,86<br>
         ...</code></li>
       <li>I imported this into a spreadsheet and charted it.</li>
-      <li>I wrote <a href="gen_graphs" target="_blank">gen_graphs</a> to graph all the single and both double-byte representations of every possible slice of
-        the data for each PID from the candump output.</li>
-      <li>I compared the chart with all of the generated graphs until I found one where the shape matched.</li>
-      <li>I experimented until I realized the unit was metric to make the numbers match. This took a while because my original data was in miles. When I divided
-        it by 161 and it matched, I was wondering why the weird constant, then I remembered that there's 1,609 meters in a mile and figured out it was
-        metric.</li>
+      <li>I wrote <a href="gen_graphs" target="_blank">gen_graphs</a> to graph all the single and double-byte representations of every possible slice of the
+        data for each PID from the candump output.<br>
+        Originally it generated both the little-endian and big-endian words, before I knew the word order. I later modified it to produce signed output.</li>
+      <li>I compared the chart with all of the generated graphs until I found one where the shape matched.<br>
+        I discovered it was a two-byte value, and this also told me the data was "little-endian" (the least-significant byte is first)</li>
+      <li>It took a while to realize the units are metric because my original data was in miles. When I divided it by 161 and it matched, I was wondering why
+        the weird constant, then I remembered that there's 1,609 meters in a mile and figured out it was metric.</li>
     </ol>
+    For some parameters, I obtained them from the Zero smartphone app using a different procedure.<br>
+    I installed "Screen Recorder - Free No Ads" which let me record a video of the Zero app running, and I split the video into an image every second, as above.<br>
+    Instead of having to laboriously enter numbers I was able to use optical character recognition to convert the frames directly into numbers.<br>
+    I used the GIMP selection tool to determine the screen location of the app field I was interested in, by simply editing one of the frames, selecting the
+    area, and reading the pixel numbers from the tool properties.<br>
+    I wrote the following BASH script:
+    <code>
+     <pre>
+#! /bin/bash
+
+cd frames
+rm output.txt
+for i in *.png ; do
+    pngtopnm $i | ocrad -e numbers -q -i -u 397,912,148,76 >> output.txt
+done
+awk NF output.txt
+</pre>
+    </code>
+    Running this output the list of numbers that I could then chart in a spreadsheet.
+    <h3>Known info for each PID</h3>
+    <hr>
+    <b>0x080</b><br>
+    No data bytes. Some sort of timing/sync?<br>
+    <hr>
+    <b>0x240</b><br>
+    Byte 0<br>
+    Current riding mode<br>
+    0x85 (133) (binary 1000 0101) Sport<br>
+    0x89 (137) (binary 1000 1001) Eco<br>
+    0x91 (145) (binary 1001 0001) Custom<br>
+    I noticed this with cansniffer.<br><br>
+    Bytes 2-3, in units of "10 meters/hour".<br>
+    Speed (km/hr) == (byte 2+256*byte 3)/100<br>
+    Used same procedure as range.<br>
+    <hr>
+    <b>0x181</b><br>
+    Bytes 2-3, in unknown units<br>
+    Bytes 6-7, in unknown units<br>
+    Torque (signed)
+    <hr>
+    <b>0x188</b><br>
+    Byte 3 in units of degrees C<br>
+    Battery temperature??
+    <hr>
+    <b>0x281</b><br>
+    Byte 6 in units of degrees C<br>
+    Motor temperature<br>
+    Good thing I realized it's metric, because the C=(F-32)x5/9 crap would have killed me.<br>
+    <hr>
+    <b>0x288</b><br>
+    Bytes 0-1, in units of 10 watts<br>
+    Power (signed)
+    <hr>
+    <b>0x289</b><br>
+    Bytes 0-1, in units of 10 amps<br>
+    Power (signed)
+    <hr>
+    <b>0x340</b><br>
+    Bytes 4-5, in units of RPM<br>
+    Motor speed<br><br>
+    Byte 6<br>
+    Error readout on dash<br>
+    0x00 (0)  No faults<br>
+    0x2C (44) Kill switch on<br>
+    0x2D (45) Kickstand down<br>
+    ...<br>
+    (See manual for complete list)<br>
+    One transmission for every error, so if there's 2 errors, there will be 2 0x340 frames.<br>
+    I noticed this with cansniffer.<br>
+    <hr>
+    <b>0x381</b><br>
+    Byte 2 in units of degrees C<br>
+    Controller temperature
+    <hr>
+    <b>0x408</b><br>
+    Byte 1 in units of degrees C<br>
+    Battery temperature??
+    <hr>
+    <b>0x440</b><br>
+    Bytes 4-5, in units of "10 meters"<br>
+    range (km) == (byte 4+256*byte 5)/100<br>
+    range (miles) == (byte 4+256*byte 5)/160.9<br>
     <hr>
     <b>0x508</b><br>
-    bytes 0-2, LSB first.<br>
+    Bytes 0-2<br>
     Some sort of up-counter incremented every second.<br>
     Total time running? (Hobbs meter?)<br>
     <hr>
     <b>0x509</b><br>
-    bytes 0-2, LSB first.<br>
+    Bytes 0-2<br>
     Some sort of up-counter incremented every second.<br>
     Total time running? (Hobbs meter?)<br>
     <hr>

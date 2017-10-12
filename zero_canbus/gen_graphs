@@ -3,10 +3,11 @@
 
 import os
 import sys
+import struct
 import matplotlib.pyplot as plt
 
 # create subdirs
-for dir in ['bytes', 'AB', 'BA']:
+for dir in ['bytes', 'words']:
     os.makedirs('graphs/'+dir, exist_ok=True)
 
 # plot data
@@ -51,19 +52,16 @@ for id in ids:
     for i in range(len(data[0])):
         # this is a list of the i'th byte for this ID
         column=list(int(x[i], 16) for x in data)
-        if min(column) != max(column):
-            title='bytes/ID:'+id+' column:'+str(i)
-            plot(title, column)
+        title='bytes/ID:'+id+' column:'+str(i)
+        print(title)
+        plot(title, column)
 
     # iterate through all the data words for this ID
     for i in range(len(data[0])-1):
         # this is a list least-significant-byte first (little-endian)
-        column=list(int(x[i], 16)+256*int(x[i+1], 16) for x in data)
-        if min(column) != max(column):
-            title='BA/ID:'+id+' column:'+str(i)
-            plot(title, column)
-
-            # this is a list most-significant-byte first (big-endian)
-            # column=list(256*int(x[i], 16)+int(x[i+1], 16) for x in data)
-            # title='AB/ID:'+id+' column:'+str(i)
-            # plot(title, column)
+        #column=list(int(x[i], 16)+256*int(x[i+1], 16) for x in data)
+        # as above, but signed
+        column=list(struct.unpack('<h', bytes.fromhex(x[i]+x[i+1])) for x in data)
+        title='words/ID:'+id+' column:'+str(i)
+        print(title)
+        plot(title, column)

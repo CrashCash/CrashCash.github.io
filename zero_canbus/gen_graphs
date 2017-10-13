@@ -3,12 +3,19 @@
 
 import os
 import sys
+import shutil
 import struct
 import matplotlib.pyplot as plt
 
+subdir='graphs'
+try:
+    shutil.rmtree(subdir)
+except:
+    pass
+
 # create subdirs
 for dir in ['bytes', 'words']:
-    os.makedirs('graphs/'+dir, exist_ok=True)
+    os.makedirs(subdir+'/'+dir, exist_ok=True)
 
 # plot data
 def plot(t, x):
@@ -42,8 +49,8 @@ ids.sort()
 for i in ['080', '508', '509', '701']:
     ids.remove(i)
 
+output=open('graph_output.txt', 'w')
 for id in ids:
-    print(id)
     # list of just the data bytes
     # data[0]: ['A8', '63', 'E3', '58', '0A', '00', '64', '00']
     data=list(x[3:3+int(x[2][1])] for x in items if x[1] == id)
@@ -52,16 +59,16 @@ for id in ids:
     for i in range(len(data[0])):
         # this is a list of the i'th byte for this ID
         column=list(int(x[i], 16) for x in data)
-        title='bytes/ID:'+id+' column:'+str(i)
-        print(title)
+        title='bytes/'+id+' byte:'+str(i)
+        print(title, column, '\n', sep='\n', file=output)
         plot(title, column)
 
     # iterate through all the data words for this ID
-    for i in range(len(data[0])-1):
+    for i in range(0, len(data[0])-1, 2):
         # this is a list least-significant-byte first (little-endian)
         #column=list(int(x[i], 16)+256*int(x[i+1], 16) for x in data)
         # as above, but signed
-        column=list(struct.unpack('<h', bytes.fromhex(x[i]+x[i+1])) for x in data)
-        title='words/ID:'+id+' column:'+str(i)
-        print(title)
+        column=list(struct.unpack('<h', bytes.fromhex(x[i]+x[i+1]))[0] for x in data)
+        title='words/'+id+' bytes:'+str(i)+'-'+str(i+1)
+        print(title, column, '\n', sep='\n', file=output)
         plot(title, column)

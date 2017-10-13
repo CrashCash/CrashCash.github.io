@@ -3,6 +3,11 @@
     <title>Zero Motorcycles CANBUS information</title>
     <style>
       li { margin-bottom: 10px; }
+      span.white {background-color: white }
+      span.grey {background-color: lightgrey }
+      span.blue { background-color: lightblue }
+      span.red { background-color: pink }
+      span.green { background-color: lightgreen }
     </style>
   </head>
   <body>
@@ -196,47 +201,65 @@ awk NF output.txt
     Running this output the list of numbers that I could then chart in a spreadsheet.
     <h3>Known info for each PID</h3>
     <hr>
-    <b>0x080</b><br>
+    <b>0x080</b> [<span class="white"> </span>]<br>
     No data bytes. Some sort of timing/sync?<br>
     <hr>
-    <b>0x240</b><br>
+    <b>0x181</b> [<span class="grey"> 0 | 1 </span>|<span class="blue"> 2 | 3 </span>|<span class="white"> 4 </span>|<span class="white"> 5 </span>|<span class="red"> 6 | 7 </span>]<br>
+    Bytes 0-1<br>
+    Always zero. Unused?<br><br>
+    Bytes 2-3, in unknown units<br>
+    Bytes 6-7, in unknown units (very fuzzy)<br>
+    Torque (signed)
+    <hr>
+    <b>0x188</b> [<span class="white"> 0 </span>|<span class="white"> 1 </span>|<span class="white"> 2 </span>|<span class="grey"> 3 </span>|<span class="white"> 4 </span>|<span class="white"> 5 </span>|<span class="white"> 6 </span>|<span class="white"> 7 </span>]<br>
+    Byte 3 in units of degrees Celsius<br>
+    Battery temperature?
+    <hr>
+    <b>0x189</b> [<span class="white"> 0 </span>|<span class="white"> 1 </span>|<span class="white"> 2 </span>|<span class="white"> 3 </span>|<span class="white"> 4 </span>|<span class="white"> 5 </span>|<span class="white"> 6 </span>|<span class="white"> 7 </span>]<br>
+    Unknown.<br>
+    <hr>
+    <b>0x1C0</b> [<span class="white"> 0 </span>|<span class="white"> 1 </span>|<span class="white"> 2 </span>|<span class="white"> 3 </span>|<span class="white"> 4 </span>|<span class="white"> 5 </span>|<span class="white"> 6 </span>|<span class="white"> 7 </span>]<br>
+    Unknown.<br>
+    <hr>
+    <b>0x240</b> [<span class="grey"> 0 </span>|<span class="blue"> 1 </span>|<span class="red"> 2 | 3 </span>|<span class="white"> 4 </span>|<span class="white"> 5 </span>|<span class="green"> 6 </span>]<br>
     Byte 0<br>
     Current riding mode<br>
     0x85 (133) (binary 1000 0101) Sport<br>
     0x89 (137) (binary 1000 1001) Eco<br>
     0x91 (145) (binary 1001 0001) Custom<br>
     I noticed this with cansniffer.<br><br>
+    Byte 1<br>
+    Always zero. Unused?<br><br>
     Bytes 2-3, in units of "10 meters/hour".<br>
     Speed (km/hr) == (byte 2+256*byte 3)/100<br>
-    Used same procedure as range.<br>
-    <hr>
-    <b>0x181</b><br>
-    Bytes 2-3, in unknown units<br>
-    Bytes 6-7, in unknown units<br>
-    Torque (signed)
-    <hr>
-    <b>0x188</b><br>
-    Byte 3 in units of degrees C<br>
-    Battery temperature??
-    <hr>
-    <b>0x240</b><br>
+    Used same procedure as range.<br><br>
     Byte 6 in units of percent<br>
-    State of charge
+    State of charge<br><br>
+    Short frame. No byte 7<br>
     <hr>
-    <b>0x281</b><br>
-    Byte 6 in units of degrees C<br>
+    <b>0x281</b> [<span class="white"> 0 </span>|<span class="white"> 1 </span>|<span class="white"> 2 </span>|<span class="white"> 3 </span>|<span class="white"> 4 </span>|<span class="white"> 5 </span>|<span class="grey"> 6 </span>|<span class="white"> 7 </span>]<br>
+    Byte 6 in units of degrees Celsius<br>
     Motor temperature<br>
     Good thing I realized it's metric, because the C=(F-32)x5/9 crap would have killed me.<br>
     <hr>
-    <b>0x288</b><br>
+    <b>0x288</b> [<span class="grey"> 0 | 1 </span>|<span class="white"> 2 </span>|<span class="white"> 3 </span>|<span class="white"> 4 </span>|<span class="white"> 5 </span>|<span class="white"> 6 </span>|<span class="white"> 7 </span>]<br>
     Bytes 0-1, in units of 10 watts<br>
     Power (signed)
     <hr>
-    <b>0x289</b><br>
+    <b>0x289</b> [<span class="grey"> 0 | 1 </span>|<span class="white"> 2 </span>|<span class="white"> 3 </span>|<span class="white"> 4 </span>|<span class="white"> 5 </span>|<span class="white"> 6 </span>|<span class="white"> 7 </span>]<br>
     Bytes 0-1, in units of 10 amps<br>
     Power (signed)
     <hr>
-    <b>0x340</b><br>
+    <b>0x2C0</b> [<span class="white"> 0 </span>|<span class="white"> 1 </span>|<span class="white"> 2 </span>|<span class="white"> 3 </span>|<span class="white"> 4 </span>|<span class="white"> 5 </span>|<span class="white"> 6 </span>|<span class="white"> 7 </span>]<br>
+    Unknown.<br>
+    <hr>
+    <b>0x308</b> [<span class="white"> 0 </span>|<span class="white"> 1 </span>|<span class="white"> 2 </span>|<span class="white"> 3 </span>|<span class="white"> 4 </span>|<span class="white"> 5 </span>|<span class="white"> 6 </span>|<span class="white"> 7 </span>]<br>
+    Unknown.<br>
+    <hr>
+    <b>0x309</b> [<span class="white"> 0 </span>|<span class="white"> 1 </span>|<span class="white"> 2 </span>|<span class="white"> 3 </span>|<span class="white"> 4 </span>|<span class="white"> 5 </span>|<span class="white"> 6 </span>|<span class="white"> 7 </span>]<br>
+    Unknown.<br>
+    <hr>
+    <b>0x340</b> [<span class="white"> 0 </span>|<span class="white"> 1 </span>|<span class="white"> 2 </span>|<span class="white"> 3 </span>|<span class="grey"> 4 | 5 </span>|<span class="blue"> 6 </span>|<span class="red"> 7 </span>]<br>
     Bytes 4-5, in units of RPM<br>
     Motor speed<br><br>
     Byte 6<br>
@@ -247,32 +270,70 @@ awk NF output.txt
     ...<br>
     (See manual for complete list)<br>
     One transmission for every error, so if there's 2 errors, there will be 2 0x340 frames.<br>
-    I noticed this with cansniffer.<br>
+    I noticed this with cansniffer.<br><br>
+    Byte 7<br>
+    Always zero. Unused?<br>
     <hr>
-    <b>0x381</b><br>
-    Byte 2 in units of degrees C<br>
+    <b>0x381</b> [<span class="white"> 0 </span>|<span class="white"> 1 </span>|<span class="grey"> 2 </span>|<span class="white"> 3 </span>|<span class="white"> 4 </span>|<span class="white"> 5 </span>|<span class="white"> 6 </span>|<span class="white"> 7 </span>]<br>
+    Byte 2 in units of degrees Celsius<br>
     Controller temperature
     <hr>
-    <b>0x408</b><br>
-    Byte 1 in units of degrees C<br>
-    Battery temperature??
+    <b>0x388</b> [<span class="white"> 0 </span>|<span class="white"> 1 </span>|<span class="white"> 2 </span>|<span class="white"> 3 </span>|<span class="white"> 4 </span>|<span class="white"> 5 </span>|<span class="white"> 6 </span>|<span class="white"> 7 </span>]<br>
+    Unknown.<br>
     <hr>
-    <b>0x440</b><br>
+    <b>0x389</b> [<span class="white"> 0 </span>|<span class="white"> 1 </span>|<span class="white"> 2 </span>|<span class="white"> 3 </span>|<span class="white"> 4 </span>|<span class="white"> 5 </span>|<span class="white"> 6 </span>|<span class="white"> 7 </span>]<br>
+    Unknown.<br>
+    <hr>
+    <b>0x3C0</b> [<span class="white"> 0 </span>|<span class="white"> 1 </span>|<span class="white"> 2 </span>|<span class="grey"> 3 </span>|<span class="blue"> 4 </span>|<span class="red"> 5 </span>]<br>
+    Byte 3<br>
+    Always zero. Unused?<br><br>
+    Byte 4<br>
+    Always zero. Unused?<br><br>
+    Byte 5<br>
+    Always zero. Unused?<br><br>
+    Short frame. No bytes 6 or 7<br>
+    <hr>
+    <b>0x408</b> [<span class="white"> 0 </span>|<span class="grey"> 1 </span>|<span class="white"> 2 </span>|<span class="white"> 3 </span>|<span class="white"> 4 </span>|<span class="white"> 5 </span>|<span class="white"> 6 </span>|<span class="white"> 7 </span>]<br>
+    Byte 1 in units of degrees Celsius<br>
+    Battery temperature?
+    <hr>
+    <b>0x409</b> [<span class="white"> 0 </span>|<span class="white"> 1 </span>|<span class="white"> 2 </span>|<span class="white"> 3 </span>|<span class="white"> 4 </span>|<span class="white"> 5 </span>|<span class="white"> 6 </span>|<span class="white"> 7 </span>]<br>
+    Unknown.<br>
+    <hr>
+    <b>0x440</b> [<span class="white"> 0 </span>|<span class="white"> 1 </span>|<span class="white"> 2 </span>|<span class="white"> 3 </span>|<span class="grey"> 4 | 5 </span>|<span class="white"> 6 </span>|<span class="white"> 7 </span>]<br>
     Bytes 4-5, in units of "10 meters"<br>
     range (km) == (byte 4+256*byte 5)/100<br>
     range (miles) == (byte 4+256*byte 5)/160.9<br>
     <hr>
-    <b>0x508</b><br>
+    <b>0x481</b> [<span class="white"> 0 </span>|<span class="white"> 1 </span>|<span class="white"> 2 </span>|<span class="white"> 3 </span>|<span class="white"> 4 </span>|<span class="white"> 5 </span>|<span class="white"> 6 </span>|<span class="white"> 7 </span>]<br>
+    Unknown.<br>
+    <hr>
+    <b>0x488</b> [<span class="white"> 0 </span>|<span class="white"> 1 </span>|<span class="white"> 2 </span>|<span class="white"> 3 </span>|<span class="white"> 4 </span>|<span class="white"> 5 </span>|<span class="white"> 6 </span>|<span class="white"> 7 </span>]<br>
+    Unknown.<br>
+    <hr>
+    <b>0x489</b> [<span class="white"> 0 </span>|<span class="white"> 1 </span>|<span class="white"> 2 </span>|<span class="white"> 3 </span>|<span class="white"> 4 </span>|<span class="white"> 5 </span>|<span class="white"> 6 </span>|<span class="white"> 7 </span>]<br>
+    Unknown.<br>
+    <hr>
+    <b>0x501</b> [<span class="white"> 0 </span>|<span class="white"> 1 </span>|<span class="white"> 2 </span>|<span class="white"> 3 </span>|<span class="white"> 4 </span>|<span class="white"> 5 </span>|<span class="white"> 6 </span>|<span class="white"> 7 </span>]<br>
+    Unknown.<br>
+    <hr>
+    <b>0x506</b> [<span class="white"> 0 </span>|<span class="white"> 1 </span>|<span class="white"> 2 </span>|<span class="white"> 3 </span>|<span class="white"> 4 </span>|<span class="white"> 5 </span>|<span class="white"> 6 </span>|<span class="white"> 7 </span>]<br>
+    Unknown.<br>
+    <hr>
+    <b>0x508</b> [<span class="grey"> 0 | 1 | 2 </span>|<span class="white"> 3 </span>|<span class="white"> 4 </span>|<span class="white"> 5 </span>|<span class="white"> 6 </span>|<span class="white"> 7 </span>]<br>
     Bytes 0-2<br>
     Some sort of up-counter incremented every second.<br>
     Total time running? (Hobbs meter?)<br>
     <hr>
-    <b>0x509</b><br>
+    <b>0x509</b> [<span class="grey"> 0 | 1 | 2 </span>|<span class="white"> 3 </span>|<span class="white"> 4 </span>|<span class="white"> 5 </span>|<span class="white"> 6 </span>|<span class="white"> 7 </span>]<br>
     Bytes 0-2<br>
     Some sort of up-counter incremented every second.<br>
     Total time running? (Hobbs meter?)<br>
     <hr>
-    <b>0x701</b><br>
+    <b>0x540</b> [<span class="white">0 </span>|<span class="white"> 1 </span>|<span class="white"> 2 </span>|<span class="white"> 3 </span>|<span class="white"> 4 </span>|<span class="white"> 5 </span>|<span class="white"> 6 </span>|<span class="white"> 7 </span>]<br>
+    Unknown.<br>
+    <hr>
+    <b>0x701</b> [<span class="grey"> 0 </span>]<br>
     Always one data byte of 0x05. Some sort of timing/sync?<br>
     <hr>
   </body>

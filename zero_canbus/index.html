@@ -180,12 +180,12 @@
       <li>It took a while to realize the units are metric because my original data was in miles. When I divided it by 161 and it matched, I was wondering why
         the weird constant, then I remembered that there's 1,609 meters in a mile and figured out it was metric.</li>
     </ol>
-    For some parameters, I obtained them from the Zero smartphone app using a different procedure.<br>
-    I installed "Screen Recorder - Free No Ads" which let me record a video of the Zero app running, and I split the video into an image every second, as above.<br>
-    Instead of having to laboriously enter numbers I was able to use optical character recognition to convert the frames directly into numbers.<br>
-    I used the GIMP selection tool to determine the screen location of the app field I was interested in, by simply editing one of the frames, selecting the
-    area, and reading the pixel numbers from the tool properties.<br>
-    I wrote the following BASH script:
+    <p>For some parameters, I obtained them from the Zero smartphone app using a different procedure.</p>
+    <p>I installed "Screen Recorder - Free No Ads" which let me record a video of the Zero app running, and I split the video into an image every second, as above.</p>
+    <p>Instead of having to laboriously enter numbers I was able to use optical character recognition to convert the frames directly into numbers. To determine
+      the location of the digits for the "ocrad" OCR program, I used the GIMP selection tool by simply editing one of the frames, selecting the area, and reading
+      the pixel numbers from the tool properties.</p>
+    <p>This allowed me to write the following BASH script:</p>
     <code>
      <pre>
 #! /bin/bash
@@ -198,7 +198,7 @@ done
 awk NF output.txt
 </pre>
     </code>
-    Running this output the list of numbers that I could then chart in a spreadsheet.
+    <p>This outputs a list of numbers that I could then chart in a spreadsheet.</p>
     <h3>Known info for each PID</h3>
     <hr>
     <b>0x080</b> [<span class="white"> </span>]<br>

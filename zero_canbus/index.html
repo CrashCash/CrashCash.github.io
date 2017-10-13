@@ -198,10 +198,10 @@ done
 awk NF output.txt
 </pre>
     </code>
-    <p>This outputs a list of numbers that I could then chart in a spreadsheet.</p>
+    <p>This outputs a list of numbers that I could chart in a spreadsheet.</p>
     <h3>Known info for each PID</h3>
     <hr>
-    <b>0x080</b> [<span class="white"> </span>]<br>
+    <b>0x080</b> [<span class="grey">&nbsp;&nbsp;&nbsp;</span>]<br>
     No data bytes. Some sort of timing/sync?<br>
     <hr>
     <b>0x181</b> [<span class="grey"> 0 | 1 </span>|<span class="blue"> 2 | 3 </span>|<span class="white"> 4 </span>|<span class="white"> 5 </span>|<span class="red"> 6 | 7 </span>]<br>
@@ -226,8 +226,7 @@ awk NF output.txt
     Current riding mode<br>
     0x85 (133) (binary 1000 0101) Sport<br>
     0x89 (137) (binary 1000 1001) Eco<br>
-    0x91 (145) (binary 1001 0001) Custom<br>
-    I noticed this with cansniffer.<br><br>
+    0x91 (145) (binary 1001 0001) Custom<br><br>
     Byte 1<br>
     Always zero. Unused?<br><br>
     Bytes 2-3, in units of "10 meters/hour".<br>
@@ -240,7 +239,6 @@ awk NF output.txt
     <b>0x281</b> [<span class="white"> 0 </span>|<span class="white"> 1 </span>|<span class="white"> 2 </span>|<span class="white"> 3 </span>|<span class="white"> 4 </span>|<span class="white"> 5 </span>|<span class="grey"> 6 </span>|<span class="white"> 7 </span>]<br>
     Byte 6 in units of degrees Celsius<br>
     Motor temperature<br>
-    Good thing I realized it's metric, because the C=(F-32)x5/9 crap would have killed me.<br>
     <hr>
     <b>0x288</b> [<span class="grey"> 0 | 1 </span>|<span class="white"> 2 </span>|<span class="white"> 3 </span>|<span class="white"> 4 </span>|<span class="white"> 5 </span>|<span class="white"> 6 </span>|<span class="white"> 7 </span>]<br>
     Bytes 0-1, in units of 10 watts<br>
@@ -248,7 +246,7 @@ awk NF output.txt
     <hr>
     <b>0x289</b> [<span class="grey"> 0 | 1 </span>|<span class="white"> 2 </span>|<span class="white"> 3 </span>|<span class="white"> 4 </span>|<span class="white"> 5 </span>|<span class="white"> 6 </span>|<span class="white"> 7 </span>]<br>
     Bytes 0-1, in units of 10 amps<br>
-    Power (signed)
+    Motor current (signed)
     <hr>
     <b>0x2C0</b> [<span class="white"> 0 </span>|<span class="white"> 1 </span>|<span class="white"> 2 </span>|<span class="white"> 3 </span>|<span class="white"> 4 </span>|<span class="white"> 5 </span>|<span class="white"> 6 </span>|<span class="white"> 7 </span>]<br>
     Unknown.<br>
@@ -269,8 +267,7 @@ awk NF output.txt
     0x2D (45) Kickstand down<br>
     ...<br>
     (See manual for complete list)<br>
-    One transmission for every error, so if there's 2 errors, there will be 2 0x340 frames.<br>
-    I noticed this with cansniffer.<br><br>
+    One transmission for every error, so if there's 2 errors, there will be 2 0x340 frames.<br><br>
     Byte 7<br>
     Always zero. Unused?<br>
     <hr>

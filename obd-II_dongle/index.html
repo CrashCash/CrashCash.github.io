@@ -12,7 +12,8 @@
     <p>My Zero SR electric motorcycle broadcasts the current range on the CANBUS, and I have a <a href="../zero_canbus/index.html" target="_blank">page</a>
       describing the format.</p>
     <p>The CANBUS is available on the OBD-II diagnostic port, and there are small "dongles" that capture and filter this information, and transmit it over USB,
-      Wi-Fi, or Bluetooth. They all use an ELM327 chip, which has a standard programming API.</p>
+      Wi-Fi, or Bluetooth. They all use an <a href="https://www.elmelectronics.com/ic/elm327/?v=7516fd43adaa" target="_blank">ELM327 chip, which has a standard
+      programming API</a>.</p>
     <p>Unfortunately, Zero does not supply power to pin 16 as per the standard, so they don't work.</p>
     <p>Making things even more difficult is the fact that the port is in a location where it's impossible to work with it.</p>
     <p>I've written an Android application to display range from the dongle, and the source is available on
@@ -22,9 +23,10 @@
     <p>For example, I bought a "Kitbest", which has absolutely no security. Anyone standing nearby can pair with it and gain access to the internal systems of
       the bike. It has no status or activity lights. It also has a counterfeit ELM327 chip, and announces a version number that ELM Electronics has never made,
       plus it doesn't understand several of the standard API commands. It was good for testing my code, though.</p>
-    <p>The dongle I selected was the ScanTool 427201 OBDLink LX Bluetooth. It has good security, where you must press a physical button and it will only pair
-      for a limited time. It has status and activity LEDs to help debug issues. Another feature is a sleep function, where it powers down to avoid draining the
-      vehicle's battery. This isn't quite so important in our application since it will be on a switched power supply.</p>
+    <p>The dongle I selected was the <a href="https://www.scantool.net/obdlink-lxbt/" target="_blank">ScanTool 427201 OBDLink LX Bluetooth</a>. It has good
+      security, where you must press a physical button and it will only pair for a limited time. It has status and activity LEDs to help debug issues. Another
+      feature is a sleep function, where it powers down to avoid draining the vehicle's battery. This isn't quite so important in our application since it will
+      be on a switched power supply.</p>
     <h3>Relocating the OBD-II port</h3>
     <p>Owners of 2017 and newer Zeros are lucky, as the port is now located under the seat. They might also have power on pin 16. You can visually tell if
       there's a pin there or not. You can also see if the dongle lights up.</p>

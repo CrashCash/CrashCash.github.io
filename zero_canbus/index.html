@@ -3,11 +3,11 @@
     <title>Zero Motorcycles CANBUS information</title>
     <style>
       li { margin-bottom: 10px; }
-      span.white {background-color: white }
-      span.grey {background-color: lightgrey }
-      span.blue { background-color: lightblue }
-      span.red { background-color: pink }
-      span.green { background-color: lightgreen }
+      span.white {background-color: white; text-decoration: underline overline }
+      span.grey {background-color: lightgrey; text-decoration: underline overline }
+      span.blue { background-color: lightblue; text-decoration: underline overline }
+      span.red { background-color: pink; text-decoration: underline overline }
+      span.green { background-color: lightgreen; text-decoration: underline overline }
     </style>
   </head>
   <body>
@@ -140,7 +140,7 @@
     <br>
     You can also visually monitor data in real time with cansniffer.
     <h3>Useful information</h3>
-    <p>The command "<code>awk '{ print $2 }' dump.txt | sort | uniq</code>" shows the following PIDs repeat continously:<br>
+    <p>The command "<code>awk '{ print $2 }' dump.txt | sort | uniq</code>" shows the following PIDs repeat continously in "sets":<br>
       0x080, 0x181, 0x188, 0x189, 0x1C0, 0x240, 0x281, 0x288, 0x289, 0x2C0, 0x308, 0x309, 0x340, 0x381, 0x388, 0x389, 0x3C0, 0x408, 0x409, 0x440, 0x481, 0x488,
       0x489, 0x501, 0x506, 0x508, 0x509, 0x540, 0x701</p>
     <p>The brake switches do not appear to be connected to the CANBUS. Nothing seems to change in candump/cansniffer.</p>
@@ -202,7 +202,7 @@ awk NF output.txt
     <h3>Known info for each PID</h3>
     <hr>
     <b>0x080</b> [<span class="grey">&nbsp;&nbsp;&nbsp;</span>]<br>
-    No data bytes. Some sort of timing/sync?<br>
+    No data bytes. CANBUS heartbeat/sync message. This indicates the start of a message set.<br>
     <hr>
     <b>0x181</b> [<span class="grey"> 0 | 1 </span>|<span class="blue"> 2 | 3 </span>|<span class="white"> 4 </span>|<span class="white"> 5 </span>|<span class="red"> 6 | 7 </span>]<br>
     Bytes 0-1<br>
@@ -213,30 +213,36 @@ awk NF output.txt
     <hr>
     <b>0x188</b> [<span class="white"> 0 </span>|<span class="white"> 1 </span>|<span class="white"> 2 </span>|<span class="grey"> 3 </span>|<span class="white"> 4 </span>|<span class="white"> 5 </span>|<span class="white"> 6 </span>|<span class="white"> 7 </span>]<br>
     Byte 3 in units of degrees Celsius<br>
-    Battery temperature?
+    Battery temperature
     <hr>
     <b>0x189</b> [<span class="white"> 0 </span>|<span class="white"> 1 </span>|<span class="white"> 2 </span>|<span class="white"> 3 </span>|<span class="white"> 4 </span>|<span class="white"> 5 </span>|<span class="white"> 6 </span>|<span class="white"> 7 </span>]<br>
     Unknown.<br>
     <hr>
-    <b>0x1C0</b> [<span class="white"> 0 </span>|<span class="white"> 1 </span>|<span class="white"> 2 </span>|<span class="white"> 3 </span>|<span class="white"> 4 </span>|<span class="white"> 5 </span>|<span class="white"> 6 </span>|<span class="white"> 7 </span>]<br>
-    Unknown.<br>
+    <b>0x1C0</b> [<span class="white"> 0 </span>|<span class="white"> 1 </span>|<span class="grey"> 2 </span>|<span class="blue"> 3 </span>|<span class="white"> 4 </span>|<span class="red"> 5 | 6 | 7 </span>]<br>
+    Byte 3 in units of minutes<br>
+    Timer? minute (0-59)<br><br>
+    Byte 4 in units of seconds (0-59)<br>
+    Timer? seconds<br><br>
+    Bytes 5-7<br>
+    Number of CANBUS message sets sent since power-on
     <hr>
     <b>0x240</b> [<span class="grey"> 0 </span>|<span class="blue"> 1 </span>|<span class="red"> 2 | 3 </span>|<span class="white"> 4 </span>|<span class="white"> 5 </span>|<span class="green"> 6 </span>]<br>
     Byte 0<br>
     Current riding mode<br>
-    0x85 (133) (binary 1000 0101) Sport<br>
-    0x89 (137) (binary 1000 1001) Eco<br>
-    0x91 (145) (binary 1001 0001) Custom<br><br>
+    0x85 (133) (binary 10000101) Sport<br>
+    0x89 (137) (binary 10001001) Eco<br>
+    0x91 (145) (binary 10010001) Custom<br><br>
     Byte 1<br>
     Always zero. Unused?<br><br>
     Bytes 2-3, in units of "10 meters/hour".<br>
-    Speed (km/hr) == (byte 2+256*byte 3)/100<br>
-    Used same procedure as range.<br><br>
+    Speed (km/hr) == (byte 2+256*byte 3)/100<br><br>
     Byte 6 in units of percent<br>
-    State of charge<br><br>
+    State of charge (0%-100%)<br><br>
     Short frame. No byte 7<br>
     <hr>
-    <b>0x281</b> [<span class="white"> 0 </span>|<span class="white"> 1 </span>|<span class="white"> 2 </span>|<span class="white"> 3 </span>|<span class="white"> 4 </span>|<span class="white"> 5 </span>|<span class="grey"> 6 </span>|<span class="white"> 7 </span>]<br>
+    <b>0x281</b> [<span class="white"> 0 </span>|<span class="white"> 1 </span>|<span class="white"> 2 </span>|<span class="white"> 3 </span>|<span class="grey"> 4 | 5 </span>|<span class="blue"> 6 </span>|<span class="white"> 7 </span>]<br>
+    Bytes 4-5<br>
+    Throttle position - value range roughly 100-1200 (noisy)<br><br>
     Byte 6 in units of degrees Celsius<br>
     Motor temperature<br>
     <hr>
@@ -267,7 +273,7 @@ awk NF output.txt
     0x2D (45) Kickstand down<br>
     ...<br>
     (See manual for complete list)<br>
-    One transmission for every error, so if there's 2 errors, there will be 2 0x340 frames.<br><br>
+    One transmission for every error, so if there's 2 errors, there will be 2 0x340 frames per set.<br><br>
     Byte 7<br>
     Always zero. Unused?<br>
     <hr>
@@ -290,9 +296,8 @@ awk NF output.txt
     Always zero. Unused?<br><br>
     Short frame. No bytes 6 or 7<br>
     <hr>
-    <b>0x408</b> [<span class="white"> 0 </span>|<span class="grey"> 1 </span>|<span class="white"> 2 </span>|<span class="white"> 3 </span>|<span class="white"> 4 </span>|<span class="white"> 5 </span>|<span class="white"> 6 </span>|<span class="white"> 7 </span>]<br>
-    Byte 1 in units of degrees Celsius<br>
-    Battery temperature?
+    <b>0x408</b> [<span class="white"> 0 </span>|<span class="white"> 1 </span>|<span class="white"> 2 </span>|<span class="white"> 3 </span>|<span class="white"> 4 </span>|<span class="white"> 5 </span>|<span class="white"> 6 </span>|<span class="white"> 7 </span>]<br>
+    Unknown.<br>
     <hr>
     <b>0x409</b> [<span class="white"> 0 </span>|<span class="white"> 1 </span>|<span class="white"> 2 </span>|<span class="white"> 3 </span>|<span class="white"> 4 </span>|<span class="white"> 5 </span>|<span class="white"> 6 </span>|<span class="white"> 7 </span>]<br>
     Unknown.<br>
@@ -331,7 +336,7 @@ awk NF output.txt
     Unknown.<br>
     <hr>
     <b>0x701</b> [<span class="grey"> 0 </span>]<br>
-    Always one data byte of 0x05. Some sort of timing/sync?<br>
+    Always one data byte of 0x05. Slave heartbeat/sync. Not always present in a message set. Does not indicate start or end of a message set.<br>
     <hr>
   </body>
 </html>

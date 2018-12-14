@@ -78,7 +78,7 @@
       <li>Don't forget ladders</li>
       <li>Make sure you have adequate batteries to transmit science</li>
       <li>Don't forget RCS & monoprop if you're going to be docking</li>
-      <li>Ramp up the landing gear springs & dampers to full</li>
+      <li>Ramp up the landing gear springs & dampers to full (1.5.x issue)</li>
     </ul>
     <h3><a target="_blank" href="https://wiki.kerbalspaceprogram.com/wiki/Settings">Suggested settings</a></h3>
     <ul>
@@ -89,8 +89,8 @@
         <li>Set default throttle to 0%</li>
         <li>Turn off autohiding navball</li>
         <li>Turn off exit confirmation</li>
-        <li>Note that the "Advanced Message Application" enables the little sub-messages next to the contracts icon that you can click for a small paragraph of
-        text. If it's off, they're just checkmarks.</li>
+        <li>The "Advanced Message Application" enables the little sub-messages next to the contracts icon that you can click for a small paragraph of text. If
+          it's off, they're just checkmarks.</li>
       </ul>
       <li>Graphics</li>
       <ul>
@@ -539,8 +539,8 @@
           languages and keyboard layouts, plus EVA 'chutes.</td></tr>
       <tr><td align="right" valign="top">1.5:</td><td class="trailer"><a target="_blank" href="https://wiki.kerbalspaceprogram.com/wiki/1.5">Dressed For Success</a></td><td>Kerbal
           IVA & EVA suits are redone.</td></tr>
-      <tr><td align="right" valign="top">1.6:</td><td class="trailer"><a target="_blank" href="https://wiki.kerbalspaceprogram.com/wiki/1.6">To Vee Or Not To Vee</a></td><td>Finally
-          added available-ΔV display and the ability to remove helmets and neck rings.</td></tr>
+      <tr><td align="right" valign="top">1.6:</td><td class="trailer"><a target="_blank" href="https://wiki.kerbalspaceprogram.com/wiki/1.6">To Vee Or Not To
+          Vee</a></td><td>(pending) Finally added an available-ΔV display and the ability to remove helmets and neck rings.</td></tr>
     </table>
     <h3>Mods</h3>
     <ul>
@@ -648,11 +648,11 @@
           </table>
         </li>
         <li><a target="_blank" href="https://forum.kerbalspaceprogram.com/index.php?/topic/161733-150-procedural-fairings-1505-20181018/">Procedural Fairings</a>
-          (ProceduralFairings) - Far better than the stock fairings and engine plates, and adds Apollo S-IVB style interstage fairings. Note that to have the
-          interstage fairings separate, the top stage must be connected to the topmost node. You really need to turn the separation forces down. Set the "force
-          percent" to 10, the "ejection power" to 0, and "ejection torque" to 0.2.<br>
-          You can have stock interstages if you use a separator - not just a decoupler. The truss structure disappears when the top separator fires. You then
-          have the stupid separator debris, though...
+          (ProceduralFairings) - Far better than the stock fairings and engine plates, and adds Apollo S-IVB style interstage fairings. To have the interstage
+          fairings separate, the top stage must be connected to the topmost node. You really need to turn the separation forces down. Set the "force percent" to
+          10, the "ejection power" to 0, and "ejection torque" to 0.2.<br>
+          (You can have stock interstages if you use a separator - not just a decoupler. The truss structure disappears when the top separator fires. You then
+          have the stupid separator debris, though...)
         </li>
         <li><a target="_blank" href="https://forum.kerbalspaceprogram.com/index.php?/topic/95531-14x-automatedsciencesampler-v135-28042018/">AutomatedScienceSampler</a>
           (KerboKatz/AutomatedScienceSampler) - Your science autopilot. Every time you enter a new biome or situation, it takes readings from all the onboard
@@ -717,12 +717,13 @@
         <li><a target="_blank"
                href="https://forum.kerbalspaceprogram.com/index.php?/topic/154922-ckan-the-comprehensive-kerbal-archive-network-v1240-bruce/">The Comprehensive Kerbal
             Archive Network</a> (CKAN) - mod management solution. Needs <a target="_blank" href="http://www.mono-project.com/download/stable/#download-lin-debian">Mono
-            5.0</a>. Kind of a pain in the ass. More trouble than it's worth. <a target="_blank" href="">forum</a></li>
+            5.0</a>. Kind of a pain in the ass. More trouble than it's worth.</li>
         <li><a target="_blank" href="https://forum.kerbalspaceprogram.com/index.php?/topic/148448-14177-gravityturn-continued-automated-efficient-launches/">GravityTurn</a>
           (GravityTurn) - Meh. Part of MechJeb now.</li>
         <li><a target="_blank" href="https://forum.kerbalspaceprogram.com/index.php?/topic/54284-131-extraplanetary-launchpads-v590/&">Extraplanetary Launchpads</a>
           - Useless now with the mission editor pads.</li>
-        <li><a target="_blank" href="https://spacedock.info/mod/1112/TakeCommandContinued">Take Command Continued</a> - Stock functionality now.</li>
+        <li><a target="_blank" href="https://spacedock.info/mod/1112/TakeCommandContinued">Take Command Continued</a> - Place kerbals in external command seats
+          at launch. Stock functionality now.</li>
       </ul>
       <li><b>Crap</b></li>
       <ul>
@@ -847,27 +848,74 @@
       </tr>
     </table>
     <h3>Notable Locations</h3>
-    You can use the <a target="_blank" href="http://www.onlineconversion.com/map_decimaldegrees.htm">Decimal/degrees converter</a> with HyperEdit (use negative
-    for South or West)<br>
-    Note that switching to map mode while in contact with a tracking station will result in the vessel being destroyed. Flags will remain, however. I filed
+    Switching to map mode while in contact with a tracking station will result in kerbals and/or the vessel being destroyed with a "collided with Base01"
+    message. Flags will remain, however. I filed
     <a target="_blank" href="https://bugs.kerbalspaceprogram.com/issues/18500">bug 18500</a><br>
-    Also see the <a target="_blank" href="https://wiki.kerbalspaceprogram.com/wiki/List_of_easter_eggs">wiki "easter eggs" page</a>. I will only mention the ones
-    that aren't listed there.<br><br>
+    I don't mention the ones already listed on the wiki "<a target="_blank" href="https://wiki.kerbalspaceprogram.com/wiki/List_of_easter_eggs">easter eggs</a>" page.<br><br>
     <table border="1" cellspacing="0" cellpadding="4">
-      <tr align="center"><th>Location</th><th>Latitude</th><th>Longitude</th><th>Latitude<br>(decimal)</th><th>Longitude<br>(decimal)</th></tr>
+      <tr align="center"><th>Location</th>
+        <th>Latitude</th>
+        <th>Longitude</th>
+        <th>Latitude<br>(decimal)</th>
+        <th>Longitude<br>(decimal)</th>
+      </tr>
       <tr align="center"><th colspan="5">Kerbin</th></tr>
-      <tr><td>Kerbal Space Center</td><td align="right">0&deg; 5' 49&quot; N</td><td align="right">74&deg; 33' 27&quot; W</td><td align="right">0.0969</td><td align="right">-74.5575</td></tr>
-      <tr><td>Island Airfield</td><td align="right">1&deg; 31' 44&quot; S</td><td align="right">71&deg; 53' 6&quot; W</td><td align="right">-1.5289</td><td align="right">-71.8850</td></tr>
-      <tr><td>Inland Space Center (Baikerbanur)</td><td align="right">20&deg; 39' 26&quot; N</td><td align="right">146&deg; 25' 14&quot; W</td><td align="right">20.6572</td><td align="right">-146.4208</td></tr>
-      <tr><td>Woomerang Launch Site</td><td align="right">45&deg; 17' 24&quot; N</td><td align="right">136&deg; 6' 36&quot; E</td><td align="right">45.2900</td><td align="right">136.1100</td></tr>
-      <tr><td>Crater Rim tracking station<br>(on top of a precarious mountain)</td><td align="right">9&deg; 27' 0&quot; N</td><td align="right">172&deg; 6' 37&quot; W</td><td align="right">9.4500</td><td align="right">-172.1103</td></tr>
-      <tr><td>Harvester Massif tracking station<br>(on a green hilltop)</td><td align="right">11&deg; 57' 0&quot; S</td><td align="right">33&deg; 44' 25&quot; E</td><td align="right">-11.9500</td><td align="right">33.7403</td></tr>
-      <tr><td>Nye Island tracking station</td><td align="right">5&deg; 21' 35&quot; N</td><td align="right">108&deg; 32' 59&quot; E</td><td align="right">5.3597</td><td align="right">108.5497</td></tr>
-      <tr><td>North Station One tracking station<br>(partially buried in the mountain)</td><td align="right">63&deg; 5' 42&quot; N</td><td align="right">90&deg; 4' 47&quot; W</td><td align="right">63.0950</td><td align="right">-90.0797</td></tr>
-      <tr><td>Mesa South tracking station<br>(on top of one hell of a mountain)</td><td align="right">59&deg; 35' 24&quot; S</td><td align="right">25&deg; 52' 11&quot; W</td><td align="right">-59.5900</td><td align="right">-25.8697</td></tr>
-      <!-- <tr><td>Monolith</td><td align="right">&deg; ' &quot; </td><td align="right">&deg; ' &quot; </td><td align="right">-</td><td align="right">-</td></tr> -->
+      <tr><td>Kerbal Space Center</td>
+        <td align="right">0&deg; 5' 49" N</td>
+        <td align="right">74&deg; 33' 27" W</td>
+        <td align="right">0.0969</td>
+        <td align="right">-74.5575</td></tr>
+      <tr><td>Island Airfield</td>
+        <td align="right">1&deg; 31' 44" S</td>
+        <td align="right">71&deg; 53' 6" W</td>
+        <td align="right">-1.5289</td>
+        <td align="right">-71.8850</td></tr>
+      <tr><td>Inland Space Center (Baikerbanur)</td>
+        <td align="right">20&deg; 39' 26" N</td>
+        <td align="right">146&deg; 25' 14" W</td>
+        <td align="right">20.6572</td>
+        <td align="right">-146.4208</td></tr>
+      <tr><td>Woomerang Launch Site</td>
+        <td align="right">45&deg; 17' 24" N</td>
+        <td align="right">136&deg; 6' 36" E</td>
+        <td align="right">45.2900</td>
+        <td align="right">136.1100</td></tr>
+      <tr><td>Crater Rim tracking station<br>(on top of a precarious mountain)</td>
+        <td align="right">9&deg; 27' 0" N</td>
+        <td align="right">172&deg; 6' 37" W</td>
+        <td align="right">9.4500</td>
+        <td align="right">-172.1103</td></tr>
+      <tr><td>Harvester Massif tracking station<br>(on a green hilltop)</td>
+        <td align="right">11&deg; 57' 0" S</td>
+        <td align="right">33&deg; 44' 25" E</td>
+        <td align="right">-11.9500</td>
+        <td align="right">33.7403</td></tr>
+      <tr><td>Nye Island tracking station</td>
+        <td align="right">5&deg; 21' 35" N</td>
+        <td align="right">108&deg; 32' 59" E</td>
+        <td align="right">5.3597</td>
+        <td align="right">108.5497</td></tr>
+      <tr><td>North Station One tracking station<br>(partially buried in the mountain)</td>
+        <td align="right">63&deg; 5' 42" N</td>
+        <td align="right">90&deg; 4' 47" W</td>
+        <td align="right">63.0950</td>
+        <td align="right">-90.0797</td></tr>
+      <tr><td>Mesa South tracking station<br>(on top of one hell of a mountain)</td>
+        <td align="right">59&deg; 35' 24" S</td>
+        <td align="right">25&deg; 52' 11" W</td>
+        <td align="right">-59.5900</td>
+        <td align="right">-25.8697</td></tr>
+      <!-- <tr><td>Monolith</td>
+           <td align="right">&deg; ' " </td>
+        <td align="right">&deg; ' " </td>
+        <td align="right">-</td>
+        <td align="right">-</td></tr> -->
       <tr><th colspan="5" align="center">Eve</th></tr>
-      <tr><td>Flat landing spot near sea level (6m ASL)<br>(near a strange square "lake")</td><td align="right">0&deg; 34' 16&quot; N</td><td align="right">106&deg; 48' 43&quot; E</td><td align="right">0.5711</td><td align="right">106.8119</td></tr>
+      <tr><td>Flat landing spot near sea level (6m ASL)<br>(near a strange square "lake")</td>
+        <td align="right">0&deg; 34' 16" N</td>
+        <td align="right">106&deg; 48' 43" E</td>
+        <td align="right">0.5711</td>
+        <td align="right">106.8119</td></tr>
     </table>
   </body>
 </html>

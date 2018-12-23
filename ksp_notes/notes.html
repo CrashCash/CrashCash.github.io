@@ -71,13 +71,13 @@
     <h3>VAB Checklist</h3>
     <ul>
       <li>Check your staging, yo!</li>
-      <li>Check for hatch obstructions</li>
-      <li>Don't forget a thermometer</li>
-      <li>Don't forget parachutes</li>
-      <li>Don't forget solar cells or some other power source</li>
-      <li>Don't forget ladders</li>
-      <li>Make sure you have adequate batteries to transmit science</li>
-      <li>Don't forget RCS & monoprop if you're going to be docking</li>
+      <li>Hatch obstructions</li>
+      <li>Thermometer</li>
+      <li>Parachutes</li>
+      <li>Solar cells or some other power source</li>
+      <li>Ladders</li>
+      <li>Adequate batteries to transmit science</li>
+      <li>RCS & monoprop if you're going to be docking</li>
       <li>Ramp up the landing gear springs & dampers to full (1.5.x issue)</li>
     </ul>
     <h3><a target="_blank" href="https://wiki.kerbalspaceprogram.com/wiki/Settings">Suggested settings</a></h3>
@@ -88,6 +88,7 @@
         <li>Turn on advanced tweakables.</li>
         <li>Set default throttle to 0%</li>
         <li>Turn off autohiding navball</li>
+        <li>Show extended burn indicator</li>
         <li>Turn off exit confirmation</li>
         <li>The "Advanced Message Application" enables the little sub-messages next to the contracts icon that you can click for a small paragraph of text. If
           it's off, they're just checkmarks.</li>
@@ -99,11 +100,14 @@
         <li>Set terrain detail to high.</li>
         <li>Turn on terrain scatters.</li>
         <li>Set texture quality to full res</li>
+      </ul>
+      <li>Other</li>
+      <ul>
         <li>Put SCREENSHOT_SUPERSIZE=2 in settings.cfg file</li>
       </ul>
     </ul>
     <h3>FVWM workaround to release function keys</h3>
-    <p>The FVWM config line to release defined function keys doesn't work as documented. The man pages says: "A '--' action indicates that the event should be
+    <p>The FVWM config line to release defined function keys doesn't work as documented. The man page says: "A '--' action indicates that the event should be
       propagated to the specified window to handle." but that isn't true. Any already-defined keys are executed instead, so none of the in-game function keys
       work. I stumbled on the workaround entirely by chance.</p>
     <p>Place the following in your ~/.fvwm/config file:</p>
@@ -188,15 +192,15 @@
             bi-elliptic transfer. You actually burn for a much higher apogee, and do your plane change there (cost of higher apogee + cheaper plane change +
             circularization burn to bring your apogee down &lt; more expensive plane change). Then you move your perigee to the desired orbit's apogee, and
             finally you circularize at perigee.</li>
+          <li>Launched a Kerbal X from Woomerang into 77x72 orbit at 45.3 degrees, leaving 2,473 units of fuel, then saved game.<br>
+            Mission: 1,000 km equatorial orbit using minimum fuel
+            <ol>
+              <li>Plane change, then burn to final orbit - 45 units fuel left (2,428 consumed)</li>
+              <li>Burn to final orbit apoapsis at lowest AN/DN with a plane change, then circularize - 168 units fuel left (2,305 consumed)</li>
+              <li>Burn to final orbit, then plane change - 405 units fuel left (2,068 consumed)</li>
+              <li>Burn to final orbit apoapsis at lowest AN/DN, then circularize with a plane change - 695 units fuel left (1,778 consumed)</li>
+            </ol>
         </ul>
-      <li>Launched a Kerbal X from Woomerang into 77x72 orbit at 45.3 degrees, leaving 2,473 units of fuel, then saved game.<br>
-        Mission: 1,000 km equatorial orbit using minimum fuel
-        <ol>
-          <li>Plane change, then burn to final orbit - 45 units fuel left (2,428 consumed)</li>
-          <li>Burn to final orbit apoapsis at lowest AN/DN with a plane change, then circularize - 168 units fuel left (2,305 consumed)</li>
-          <li>Burn to final orbit, then plane change - 405 units fuel left (2,068 consumed)</li>
-          <li>Burn to final orbit apoapsis at lowest AN/DN, then circularize with a plane change - 695 units fuel left (1,778 consumed)</li>
-        </ol>
       </li>
     </ul>
     <h3><a target="_blank" href="https://wiki.kerbalspaceprogram.com/wiki/Parachute">Parachute colors</a></h3>
@@ -264,7 +268,8 @@
       <li>You need a scientist to restore material and goo modules.</li>
       <li>A "<a target="_blank" href="http://wiki.kerbalspaceprogram.com/wiki/Biome">biome</a>" is an area on a planet that counts as a different science
         report.</li>
-      <li>There are about 28 separate biomes at KSC. You can run around in a rover and experiment with science.<br>
+      <li>There are about 28 separate biomes at KSC at level 3. You can run around in a rover and experiment with science. Only the bare areas are available at
+        level 1. The main buildings are available at level 2.<br>
         <ul>
           <li>Administration</li>
           <li>Astronaut Complex</li>
@@ -272,50 +277,50 @@
           <li>Flag Pole</li>
           <li>Launch Pad
             <ul>
-              <li>Water Tower (Level 3 only)</li>
-              <li>Platform (Level 2 only)</li>
-              <li>Flag Pole (Level 3 only)</li>
-              <li>Round Tank (Level 3 only)</li>
-              <li>Tanks (Level 3 only)</li>
+              <li>Water Tower</li>
+              <li>Platform</li>
+              <li>Flag Pole</li>
+              <li>Round Tank</li>
+              <li>Tanks</li>
             </ul>
           </li>
           <li>Mission Control</li>
           <li>R&amp;D
             <ul>
-              <li>Main Building (Level 2 & 3 only)</li>
-              <li>Central Building (Level 3 only)</li>
-              <li>Corner Lab (Level 3 only)</li>
-              <li>Observatory (Level 3 only)</li>
-              <li>Side Lab (Level 3 only)</li>
-              <li>Small Lab (Level 3 only)</li>
-              <li>Tanks (Level 3 only)</li>
-              <li>Wind Tunnel (Level 3 only)</li>
+              <li>Main Building</li>
+              <li>Central Building</li>
+              <li>Corner Lab</li>
+              <li>Observatory</li>
+              <li>Side Lab</li>
+              <li>Small Lab</li>
+              <li>Tanks</li>
+              <li>Wind Tunnel</li>
             </ul>
           </li>
           <li>Runway</li>
           <li>SPH
             <ul>
-              <li>Main Building (Level 2 & 3 only)</li>
-              <li>Round Tank (Level 3 only)</li>
-              <li>Tanks (Level 3 only)</li>
-              <li>Water Tower (Level 3 only)</li>
+              <li>Main Building</li>
+              <li>Round Tank</li>
+              <li>Tanks</li>
+              <li>Water Tower</li>
             </ul>
           </li>
           <li>Tracking Station
             <ul>
-              <li>Hub (Level 2 & 3 only)</li>
-              <li>Dish East (Level 3 only)</li>
-              <li>Dish North (Level 3 only)</li>
-              <li>Dish South (Level 3 only)</li>
+              <li>Hub</li>
+              <li>Dish East</li>
+              <li>Dish North</li>
+              <li>Dish South</li>
             </ul>
           </li>
           <li>VAB
             <ul>
-              <li>Main Building (Level 2 & 3 only)</li>
-              <li>Pod Memorial (Level 3 only)</li>
-              <li>Round Tank (Level 3 only)</li>
-              <li>South Complex (Level 2 only)</li>
-              <li>Tanks (Level 3 only)</li>
+              <li>Main Building</li>
+              <li>Pod Memorial</li>
+              <li>Round Tank</li>
+              <li>South Complex</li>
+              <li>Tanks</li>
             </ul>
           </li>
         </ul>
@@ -540,13 +545,14 @@
       <tr><td align="right" valign="top">1.5:</td><td class="trailer"><a target="_blank" href="https://wiki.kerbalspaceprogram.com/wiki/1.5">Dressed For Success</a></td><td>Kerbal
           IVA & EVA suits are redone.</td></tr>
       <tr><td align="right" valign="top">1.6:</td><td class="trailer"><a target="_blank" href="https://wiki.kerbalspaceprogram.com/wiki/1.6">To Vee Or Not To
-          Vee</a></td><td>(pending) Finally added an available-ΔV display and the ability to remove helmets and neck rings.</td></tr>
+          Vee</a></td><td>Finally added an available-ΔV display and the ability to remove helmets and neck rings.</td></tr>
     </table>
     <h3>Mods</h3>
     <ul>
       <li><b>Must Have</b> (these should be part of the game)</li>
       <ul>
-        <li><a target="_blank" href="https://ksp.sarbian.com/jenkins/job/MechJeb2-Dev/">MechJeb</a> (MechJeb2) - A flight computer like real rockets have.</li>
+        <li><a target="_blank" href="https://ksp.sarbian.com/jenkins/job/MechJeb2-Release/">MechJeb</a> (MechJeb2) - A flight computer like real rockets have.
+          <a target="_blank" href="https://ksp.sarbian.com/jenkins/job/MechJeb2-Dev/">(Dev release)</a></li>
         <ul>
           <li>To unlock everything in career, use Module Manager, which ignores the tech tree. You still have to have the upgraded tracking station for various
             things.</li>
@@ -612,11 +618,11 @@
           supplied by Squad/Private Division/Take Two as part of the damn game!</li>
         <li><a target="_blank"
         href="https://forum.kerbalspaceprogram.com/index.php?/topic/169206-131-15x-worldstabilizer-bugfix-for-vessels-bouncing-on-scene-load/">World
-        Stabilizer</a> (WorldStabilizer) There's a bug that when you enter the scene with a landed vessel, it jumps up in the air (or the lack of it).  The root
-          cause seems to be that the game places the vessels slightly beneath the ground and physics kicks in and the ground pushes the vessels outwards with
-          significant force. In many cases, especially on low-gravity worlds this is disastrous. This mod intercepts all unpacked (i.e. those affected by
-          physics engine) vessels in the scene right before physics is about to kick in, determines if they are "submerged" into the ground, raises them
-          slightly above﻿ and slowly releases.
+        Stabilizer</a> (WorldStabilizer) There's a bug (as of 1.6) that when you enter the scene with a landed vessel, it jumps up in the air (or the lack of
+          it).  The root cause seems to be that the game places the vessels slightly beneath the ground and physics kicks in and the ground pushes the vessels
+          outwards with significant force. In many cases, especially on low-gravity worlds this is disastrous. This mod intercepts all unpacked (i.e. those
+          affected by physics engine) vessels in the scene right before physics is about to kick in, determines if they are "submerged" into the ground, raises
+          them slightly above﻿ and slowly releases.
         </li>
       </ul>
       <li><b>Suggested</b></li>
@@ -750,11 +756,11 @@
         Turn off the upper vernier engines on the Agena before launch. They just drive MechJeb into oscillation.<br>
         After that, it's two standard orbits, a rendezvous, docking, and landing. Transfer fuel before undocking.</li>
       <li>Blue M&uuml;n:<br>
-        You gotta build shit. Nope.</li>
+        You gotta build things. Nope.</li>
       <li>M&uuml;nar 1:<br>
-        You gotta build shit. Nope.</li>
+        You gotta build things. Nope.</li>
       <li>Acapello 15:<br>
-        You gotta build shit. Nope.</li>
+        You gotta build things. Nope.</li>
     </ol>
     <h3>KSP file tree</h3>
     <p>This is the directory structure under KSP_linux</p>
@@ -848,7 +854,8 @@
       </tr>
     </table>
     <h3>Notable Locations</h3>
-    Switching to map mode while in contact with a tracking station will result in kerbals and/or the vessel being destroyed with a "collided with Base01"
+    Switching to map mode while in contact with a tracking station will result in kerbals and/or the vessel being destroyed with a "collided with/crashed into
+    Base00/Base01/the surface"
     message. Flags will remain, however. I filed
     <a target="_blank" href="https://bugs.kerbalspaceprogram.com/issues/18500">bug 18500</a><br>
     I don't mention the ones already listed on the wiki "<a target="_blank" href="https://wiki.kerbalspaceprogram.com/wiki/List_of_easter_eggs">easter eggs</a>" page.<br><br>
@@ -858,64 +865,94 @@
         <th>Longitude</th>
         <th>Latitude<br>(decimal)</th>
         <th>Longitude<br>(decimal)</th>
+        <th>Altitude</th>
       </tr>
-      <tr align="center"><th colspan="5">Kerbin</th></tr>
-      <tr><td>Kerbal Space Center</td>
+      <tr align="center"><th colspan="6">Kerbin</th></tr>
+      <tr><td>Kerbal Space Center (pad)</td>
         <td align="right">0&deg; 5' 49" N</td>
         <td align="right">74&deg; 33' 27" W</td>
-        <td align="right">0.0969</td>
-        <td align="right">-74.5575</td></tr>
+        <td align="right">-0.0972</td>
+        <td align="right">-74.5577</td>
+        <td align="right">73m</td></tr>
+      <tr><td>Kerbal Space Center (runway)</td>
+        <td align="right">0&deg; 2' 54" N</td>
+        <td align="right">74&deg; 43' 28" W</td>
+        <td align="right">-0.0486</td>
+        <td align="right">-74.7245</td>
+        <td align="right">70m</td></tr>
       <tr><td>Island Airfield</td>
-        <td align="right">1&deg; 31' 44" S</td>
-        <td align="right">71&deg; 53' 6" W</td>
-        <td align="right">-1.5289</td>
-        <td align="right">-71.8850</td></tr>
-      <tr><td>Inland Space Center (Baikerbanur)</td>
-        <td align="right">20&deg; 39' 26" N</td>
-        <td align="right">146&deg; 25' 14" W</td>
-        <td align="right">20.6572</td>
-        <td align="right">-146.4208</td></tr>
+        <td align="right">1&deg; 31' 45" S</td>
+        <td align="right">71&deg; 53' 7" W</td>
+        <td align="right">-1.5293</td>
+        <td align="right">-71.8853</td>
+        <td align="right">133m</td></tr>
       <tr><td>Woomerang Launch Site</td>
-        <td align="right">45&deg; 17' 24" N</td>
-        <td align="right">136&deg; 6' 36" E</td>
-        <td align="right">45.2900</td>
-        <td align="right">136.1100</td></tr>
+        <td align="right">45&deg; 17' 22" N</td>
+        <td align="right">136&deg; 6' 35" E</td>
+        <td align="right">45.2896</td>
+        <td align="right">136.1100</td>
+        <td align="right">740m</td></tr>
+      <tr><td>Dessert Airfield</td>
+        <td align="right">6&deg; 35' 58" S</td>
+        <td align="right">144&deg; 2' 27" W</td>
+        <td align="right">-6.5997</td>
+        <td align="right">-144.0407</td>
+        <td align="right">821m</td></tr>
+      <tr><td>Dessert Launch Site</td>
+        <td align="right">6&deg; 33' 37" S</td>
+        <td align="right">143&deg; 57' 00" W</td>
+        <td align="right">-6.5604</td>
+        <td align="right">-143.9500</td>
+        <td align="right">824m</td></tr>
+      <tr><td>Inland Space Center (Baikerbanur)</td>
+        <td align="right">20&deg; 39' 24" N</td>
+        <td align="right">146&deg; 25' 21" W</td>
+        <td align="right">20.6568</td>
+        <td align="right">-146.4227</td>
+        <td align="right">422m</td></tr>
       <tr><td>Crater Rim tracking station<br>(on top of a precarious mountain)</td>
         <td align="right">9&deg; 27' 0" N</td>
         <td align="right">172&deg; 6' 37" W</td>
         <td align="right">9.4500</td>
-        <td align="right">-172.1103</td></tr>
+        <td align="right">-172.1103</td>
+        <td align="right">4017m</td></tr>
       <tr><td>Harvester Massif tracking station<br>(on a green hilltop)</td>
         <td align="right">11&deg; 57' 0" S</td>
         <td align="right">33&deg; 44' 25" E</td>
         <td align="right">-11.9500</td>
-        <td align="right">33.7403</td></tr>
+        <td align="right">33.7403</td>
+        <td align="right">2656m</td></tr>
       <tr><td>Nye Island tracking station</td>
         <td align="right">5&deg; 21' 35" N</td>
         <td align="right">108&deg; 32' 59" E</td>
         <td align="right">5.3597</td>
-        <td align="right">108.5497</td></tr>
+        <td align="right">108.5497</td>
+        <td align="right">371m</td></tr>
       <tr><td>North Station One tracking station<br>(partially buried in the mountain)</td>
         <td align="right">63&deg; 5' 42" N</td>
         <td align="right">90&deg; 4' 47" W</td>
         <td align="right">63.0950</td>
-        <td align="right">-90.0797</td></tr>
-      <tr><td>Mesa South tracking station<br>(on top of one hell of a mountain)</td>
+        <td align="right">-90.0797</td>
+        <td align="right">2781m</td></tr>
+      <tr><td>Mesa South tracking station<br>(on top of one hell of a mountain peak)</td>
         <td align="right">59&deg; 35' 24" S</td>
         <td align="right">25&deg; 52' 11" W</td>
         <td align="right">-59.5900</td>
-        <td align="right">-25.8697</td></tr>
+        <td align="right">-25.8697</td>
+        <td align="right">5429m</td></tr>
       <!-- <tr><td>Monolith</td>
            <td align="right">&deg; ' " </td>
         <td align="right">&deg; ' " </td>
         <td align="right">-</td>
-        <td align="right">-</td></tr> -->
-      <tr><th colspan="5" align="center">Eve</th></tr>
-      <tr><td>Flat landing spot near sea level (6m ASL)<br>(near a strange square "lake")</td>
+        <td align="right">-</td>
+        <td align="right"></td></tr> -->
+      <tr><th colspan="6" align="center">Eve</th></tr>
+      <tr><td>Flat landing spot near sea level (6m ASL)</td>
         <td align="right">0&deg; 34' 16" N</td>
         <td align="right">106&deg; 48' 43" E</td>
         <td align="right">0.5711</td>
-        <td align="right">106.8119</td></tr>
+        <td align="right">106.8119</td>
+        <td align="right">6m</td></tr>
     </table>
   </body>
 </html>

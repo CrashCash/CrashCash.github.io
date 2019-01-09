@@ -33,6 +33,10 @@
       <li>You don’t need to call and close your flight plan because they just heard you land.</li>
       <li>Normally we don't judge landings on the Richter scale.
       <li>The next KSP DLC is going to be "Grand Theft Rover" (I keed, I keed!)</li>
+      <li>We pray for one last landing<br>
+        On the globe that gave us birth<br>
+        Let us rest our eyes on the fleecy skies<br>
+        And the cool, green hills of Earth.</li>
     </ul>
     <h3>Facts</h3>
     <ul>
@@ -88,9 +92,7 @@
     <h4>Graphics</h4>
     <img src="graphics.png">
     <h4>Other</h4>
-    <ul>
-      <li>Put SCREENSHOT_SUPERSIZE=2 in settings.cfg file</li>
-    </ul>
+    <p>Put SCREENSHOT_SUPERSIZE=2 in settings.cfg file</p>
     <h3>FVWM workaround to release function keys</h3>
     <p>The FVWM config line to release defined function keys doesn't work as documented. The man page says: "A '--' action indicates that the event should be
       propagated to the specified window to handle." but that isn't true. Any already-defined keys are executed instead, so none of the in-game function keys
@@ -573,10 +575,10 @@
             This is bi-impulsive -- not bi-elliptical -- the bi-elliptical transfer is actually tri-impulsive.  There are algorithms to refine a bi-impulsive
             transfer into an optimal N-impulse trajectory, which this could feed into, but this is not that.<br>
             The default behavior if you have circular, coplanar orbits is that you just whack "create node" and it acts like the old Hohmann transfer planner,
-            only it won't miss if you're off by a bit.  But it will also plan optimal burns between non-coplanar / non-elliptical orbits.  So you can launch
-            into an equatorial parking orbit around Kerbin and plan a transfer to Minmus and it will actually hit Minmus now.  It will even plan burns when one
-            of the targets is hyperbolic.  That means if you have a ship in a parking orbit and want to do an asteroid capture mission you should just be able
-            to select the target and whack "create node" and it'll work and give you the optimum transfer.<br>
+            only it won't miss if you're off by a bit.  But it will also plan optimal burns between non-coplanar/non-elliptical orbits.  So you can launch into
+            an equatorial parking orbit around Kerbin and plan a transfer to Minmus and it will actually hit Minmus now.  It will even plan burns when one of
+            the targets is hyperbolic.  That means if you have a ship in a parking orbit and want to do an asteroid capture mission you should just be able to
+            select the target and whack "create node" and it'll work and give you the optimum transfer.<br>
             The "intercept only" switch is the sort of "mono-impulsive" case where you don't care about the cost of the second burn.  So if you're going to lob
             a nuke or kinetic interceptor at something, this is what you want.<br>
             The drag down also allows selecting the time of the burn via all the familiar MJ options for selecting the time of a burn.  In that case no
@@ -699,6 +701,11 @@
         <li><a target="_blank" href="https://github.com/neuoy/KSPTrajectories/releases">Trajectories</a> - Displays atmospheric trajectory of the vessel,
           landing site, trajectory after aerobraking, etc. Abandoned and not fully compatible with 1.2, as far as I can tell.
           <a target="_blank" href="https://forum.kerbalspaceprogram.com/index.php?/topic/162324-131-trajectories-v200-2018-02-15-atmospheric-predictions/&">forum</a></li>
+      </ul>
+      <li><b>Need to fix</b></li>
+      <ul>
+        <li><a target="_blank" href="https://github.com/Dasoccerguy/io_kspblender">KSP .craft Importer Addon for Blender</a> as soon as Blender 2.80 is packaged
+          for Debian</li>
       </ul>
       <li><b>Doesn't work</b></li>
       <ul>
@@ -872,12 +879,6 @@
         <td align="right">-1.5293</td>
         <td align="right">-71.8853</td>
         <td align="right">133m</td></tr>
-      <tr><td>Woomerang Launch Site</td>
-        <td align="right">45&deg; 17' 22" N</td>
-        <td align="right">136&deg; 6' 35" E</td>
-        <td align="right">45.2896</td>
-        <td align="right">136.1100</td>
-        <td align="right">740m</td></tr>
       <tr><td>Dessert Airfield</td>
         <td align="right">6&deg; 35' 58" S</td>
         <td align="right">144&deg; 2' 27" W</td>
@@ -890,42 +891,60 @@
         <td align="right">-6.5604</td>
         <td align="right">-143.9500</td>
         <td align="right">824m</td></tr>
+      <tr><td>Woomerang Launch Site</td>
+        <td align="right">45&deg; 17' 22" N</td>
+        <td align="right">136&deg; 6' 35" E</td>
+        <td align="right">45.2896</td>
+        <td align="right">136.1100</td>
+        <td align="right">740m</td></tr>
+      <tr><td>Woomerang Tracking Station<br>(visible on mountain 10km SE of launch site)</td>
+        <td align="right">44&deg; 43' 11" N</td>
+        <td align="right">137&deg; 1' 47" E</td>
+        <td align="right">44.7200</td>
+        <td align="right">137.0300</td>
+        <td align="right">4,869m</td></tr>
       <tr><td>Inland Space Center (Baikerbanur)</td>
         <td align="right">20&deg; 39' 24" N</td>
         <td align="right">146&deg; 25' 21" W</td>
         <td align="right">20.6568</td>
         <td align="right">-146.4227</td>
         <td align="right">422m</td></tr>
-      <tr><td>Crater Rim tracking station<br>(on top of a precarious mountain)</td>
+      <tr><td>Baikerbanur Tracking Station</td>
+        <td align="right">20&deg; 40' 51" N</td>
+        <td align="right">146&deg; 30' 6" W</td>
+        <td align="right">44.7193﻿</td>
+        <td align="right">-146.5017</td>
+        <td align="right">424m</td></tr>
+      <tr><td>Crater Rim Tracking Station<br>(on top of a precarious mountain)</td>
         <td align="right">9&deg; 27' 0" N</td>
         <td align="right">172&deg; 6' 37" W</td>
         <td align="right">9.4500</td>
         <td align="right">-172.1103</td>
-        <td align="right">4017m</td></tr>
-      <tr><td>Harvester Massif tracking station<br>(on a green hilltop)</td>
+        <td align="right">4,017m</td></tr>
+      <tr><td>Harvester Massif Tracking Station<br>(on a green hilltop)</td>
         <td align="right">11&deg; 57' 0" S</td>
         <td align="right">33&deg; 44' 25" E</td>
         <td align="right">-11.9500</td>
         <td align="right">33.7403</td>
-        <td align="right">2656m</td></tr>
-      <tr><td>Nye Island tracking station</td>
+        <td align="right">2,656m</td></tr>
+      <tr><td>Nye Island Tracking Station</td>
         <td align="right">5&deg; 21' 35" N</td>
         <td align="right">108&deg; 32' 59" E</td>
         <td align="right">5.3597</td>
         <td align="right">108.5497</td>
         <td align="right">371m</td></tr>
-      <tr><td>North Station One tracking station<br>(partially buried in the mountain)</td>
+      <tr><td>North Station One Tracking Station<br>(partially buried in the mountain)</td>
         <td align="right">63&deg; 5' 42" N</td>
         <td align="right">90&deg; 4' 47" W</td>
         <td align="right">63.0950</td>
         <td align="right">-90.0797</td>
         <td align="right">2781m</td></tr>
-      <tr><td>Mesa South tracking station<br>(on top of one hell of a mountain peak)</td>
+      <tr><td>Mesa South Tracking Station<br>(on top of one hell of a mountain peak)</td>
         <td align="right">59&deg; 35' 24" S</td>
         <td align="right">25&deg; 52' 11" W</td>
         <td align="right">-59.5900</td>
         <td align="right">-25.8697</td>
-        <td align="right">5429m</td></tr>
+        <td align="right">5,429m</td></tr>
       <!-- <tr><td>Monolith</td>
            <td align="right">&deg; ' " </td>
         <td align="right">&deg; ' " </td>

@@ -198,13 +198,6 @@
       <li>Green: fully deployed - applies fully-deployed drag</li>
       <li>Red: broken/spent. An engineer can repack red chutes by EVAing a kerbal and right clicking on the chute when he's near it.</li>
     </ul>
-    <h3>Joystick</h3>
-    <ul>
-      <li>To avoid conflict with mouse/keys, edit /usr/share/X11/xorg.conf.d/50-joystick.conf and add:<br>
-        Option "StartKeysEnabled" "False"<br>
-	Option "StartMouseEnabled" "False"</li>
-      <li>Joystick must be connected before running KSP</li>
-    </ul>
     <h3>VAB</h3>
     <ul>
       <li>Space - Reset rotations</li>
@@ -539,8 +532,11 @@
     <ul>
       <li><b>Must Have</b> (these should be part of the game)</li>
       <ul>
-        <li><a target="_blank" href="https://ksp.sarbian.com/jenkins/job/MechJeb2-Release/">MechJeb</a> (MechJeb2) - A flight computer like real rockets have.
-          <a target="_blank" href="https://ksp.sarbian.com/jenkins/job/MechJeb2-Dev/">(Dev release)</a></li>
+        <li><a target="_blank" href="https://ksp.sarbian.com/jenkins/job/MechJeb2-Release/">MechJeb</a> (MechJeb2) - A flight computer like real rockets have,
+          by Anatid Robotics﻿ and Multiversal﻿﻿ Mechatronics.
+          <a target="_blank" href="https://ksp.sarbian.com/jenkins/job/MechJeb2-Dev/">(Dev release)</a>
+          <a target="_blank" href="https://github.com/MuMech/MechJeb2/wiki">(Wiki)</a>
+          <a target="_blank" href="https://forum.kerbalspaceprogram.com/index.php?/topic/154834-15x-anatid-robotics-mumech-mechjeb-autopilot-281-16-october-2018/">(Forum)</a></li>
         <ul>
           <li>To unlock everything in career, use Module Manager, which ignores the tech tree. You still have to have the upgraded tracking station for various
             things.</li>
@@ -655,6 +651,8 @@
       </ul>
       <li><b>Good</b></li>
       <ul>
+        <li>You now need <a target="_blank" href="https://forum.kerbalspaceprogram.com/index.php?/topic/175359-15-afbw-revived-joystick-controller-mod/">Advanced
+            Fly﻿-By﻿-﻿﻿Wire (revived)</a> since stock KSP no longer supports joysticks. Joystick must be connected before running KSP</li>
         <li><a target="_blank" href="https://github.com/krpc/krpc">kRPC</a> - Allows you to control Kerbal Space Program from Python scripts running outside of
           the game.</li>
         <li><a target="_blank" href="https://github.com/KSP-Telemachus/Telemachus">Telemachus</a> - Put the antenna on a spacecraft and see real-time data in
@@ -675,13 +673,7 @@
         <li><a target="_blank" href="https://forum.kerbalspaceprogram.com/index.php?/topic/94432-14x-waypoint-manager-v272-2018-03-10/">Waypoint Manager</a>
           (WaypointManager) - Shows you contract navigation points, distance, and ETA.</li>
         <li><a target="_blank" href="https://spacedock.info/mod/1092/Kronal%20Vessel%20Viewer%20Continued">Kronal Vessel Viewer Continued</a> (KronalUtils) -
-          Lets you generate blueprint-like exploded views. It has dependencies on:
-          <ul>
-            <li><a target="_blank" href="https://forum.kerbalspaceprogram.com/index.php?/topic/170747-141-click-through-blocker/">Click Through Blocker</a>
-              (ClickThroughBlocker) - Avoid clicking through mod UI elements</li>
-            <li><a target="_blank" href="https://forum.kerbalspaceprogram.com/index.php?/topic/169509-141-toolbar-controller-for-modders/">Toolbar
-                Controller</a> (001_ToolbarControl) - Control which toolbar to place things</li>
-          </ul>
+          Lets you generate blueprint-like exploded views.</li>
         </li>
       </ul>
       <li><b>Not yet tried</b></li>
@@ -697,37 +689,22 @@
         <li><a target="_blank" href="https://forum.kerbalspaceprogram.com/index.php?/topic/107661-ksp-141-x-science-ksp-science-report-and-checklist-v513/">[x] Science!</a>
           - Science report and check-list</li>
         <li><a target="_blank" href="https://forum.kerbalspaceprogram.com/index.php?/topic/33124-12-rcs-build-aid-v091/">RCS Build Aid</a> - Display thrust and
-          torque forces caused by R.C.S. or engines</li>
+          torque forces caused by RCS or engines</li>
         <li><a target="_blank" href="https://github.com/neuoy/KSPTrajectories/releases">Trajectories</a> - Displays atmospheric trajectory of the vessel,
           landing site, trajectory after aerobraking, etc. Abandoned and not fully compatible with 1.2, as far as I can tell.
           <a target="_blank" href="https://forum.kerbalspaceprogram.com/index.php?/topic/162324-131-trajectories-v200-2018-02-15-atmospheric-predictions/&">forum</a></li>
       </ul>
       <li><b>Need to fix</b></li>
       <ul>
-        <li><a target="_blank" href="https://github.com/Dasoccerguy/io_kspblender">KSP .craft Importer Addon for Blender</a> as soon as Blender 2.80 is packaged
-          for Debian</li>
+        <li><a target="_blank" href="https://github.com/Dasoccerguy/io_kspblender">KSP .craft Importer Addon for Blender</a>. This would enable rockets → .craft
+          file → <a target="_blank" href="https://www.blender.org/">Blender</a> → .stl file → <a target="_blank" href="https://www.prusa3d.com/slic3r-prusa-edition/">Slic3rPE</a>
+          → <a target="_blank" href="https://www.prusa3d.com/original-prusa-i3-mk3/">Prusa i3 Mk3</a> → 3D print!</li>
       </ul>
-      <li><b>Doesn't work</b></li>
+      <li><b>Meh</b></li>
       <ul>
-        <li></li>
-      </ul>
-      <li><b>Meh (or outdated)</b></li>
-      <ul>
-        <li><a target="_blank"
-               href="https://forum.kerbalspaceprogram.com/index.php?/topic/154922-ckan-the-comprehensive-kerbal-archive-network-v1240-bruce/">The Comprehensive Kerbal
-            Archive Network</a> (CKAN) - mod management solution. Needs <a target="_blank" href="http://www.mono-project.com/download/stable/#download-lin-debian">Mono
+        <li><a target="_blank" href="https://forum.kerbalspaceprogram.com/index.php?/topic/154922-ckan-the-comprehensive-kerbal-archive-network-v1240-bruce/">The
+            Comprehensive Kerbal Archive Network</a> (CKAN) - mod management solution. Needs <a target="_blank" href="http://www.mono-project.com/download/stable/#download-lin-debian">Mono
             5.0</a>. Kind of a pain in the ass. More trouble than it's worth.</li>
-        <li><a target="_blank" href="https://forum.kerbalspaceprogram.com/index.php?/topic/148448-14177-gravityturn-continued-automated-efficient-launches/">GravityTurn</a>
-          (GravityTurn) - Meh. Part of MechJeb now.</li>
-        <li><a target="_blank" href="https://forum.kerbalspaceprogram.com/index.php?/topic/54284-131-extraplanetary-launchpads-v590/&">Extraplanetary Launchpads</a>
-          - Useless now with the mission editor pads.</li>
-        <li><a target="_blank" href="https://spacedock.info/mod/1112/TakeCommandContinued">Take Command Continued</a> - Place kerbals in external command seats
-          at launch. Stock functionality now.</li>
-      </ul>
-      <li><b>Crap</b></li>
-      <ul>
-        <li>Kerbal Joint Reinforcement - didn't seem to do anything at all for me.</li>
-        <li>Airships to Other Planets - couldn't really figure out how to use it.</li>
       </ul>
     </ul>
     <h3>DLC Missions</h3>

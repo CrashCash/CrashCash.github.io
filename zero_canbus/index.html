@@ -40,7 +40,6 @@
         Install Raspbian Jessie Lite on the SD card.<br>
         Note that ssh is now disabled by default, as per
         <a href="https://www.raspberrypi.org/blog/a-security-update-for-raspbian-pixel/" target="_blank">https://www.raspberrypi.org/blog/a-security-update-for-raspbian-pixel/</a><br>
-        This kills me because I usually use my Raspberry Pis headless (without a keyboard and monitor) so I can't just run raspi-config and enable ssh.<br>
         To enable ssh, loopback-mount the image on your Linux box, and put a file named "ssh" in the /boot directory on the VFAT partition. This enables it for
         the next boot only, so be sure to immediately enable ssh permanently through raspi-config.
       </li>

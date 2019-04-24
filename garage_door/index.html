@@ -17,21 +17,26 @@
       <a href="http://www.piface.org.uk/products/piface_digital/" target="_blank">PiFace Digital I/O board</a>. The Pi is attached to the internet. It uses SSL
       mutual authentication to control who can open the door, and keep hackers out. Only the Android app with the properly signed certificate can do it. I can
       deploy the app and certificate to multiple phones.</p>
-    <img src="holder.jpg" style="float:right;">
     <p>The user starts the app either via the normal method, or by pressing a Bluetooth button. I have a
       <a href="http://www.satechi.net/index.php/satechi-bluetooth-button-series-home-button" target="_blank">Satechi "Home" button</a> mounted on the side of my
       helmet with a <a href="https://www.shapeways.com/product/G9UNHZ3VB/bluetooth-button-mount" target="_blank">3D-printed carrier</a> that I designed.
       (Originally, I wanted to be able to put a Bluetooth Low Energy beacon on the bike, and the app would see it and start up when I got on, but none of the
-      BLE beacons I tried were reliable. I also tried an NFC tag on my helmet, but tapping the phone on the helmet proved tedious.)</p>
-    <p>One note about the button: It's an Android "Home" button, and I'm not able to do much with this button. I can only tell if it connects. I also can't
-      disconnect a particular Bluetooth device. I can only turn off Bluetooth completely, to force it to disconnect. I do this so it has to reconnect and I can
-      detect it.</p>
+      BLE beacons I tried were reliable. I also tried an NFC tag on my helmet, but unlocking and tapping the phone on the helmet proved tedious.)</p>
+    <p>One note about the button: It's an Android "Home" button emulating a 1-button keyboard, and I'm not able to do much with this button. I can only tell if
+      it connects.</p>
     <p>Another note about Bluetooth buttons: A lot of the cheap Chinese crap actually had to be turned on, before they could be used. This is pretty much
     useless. The Satechi product just needs to be clicked, and it wakes up and communicates with the phone.</p>
-    <p>Of course, my phone is rooted so it can turn on/off the GPS & cell data as needed. Unfortunately, the hacks to do this are different for each Android OS
-      version, so my app only runs on Marshmallow.</p>
-    <h3>Phone app cycle of operation</h3>
-    <img src="flowchart.png">
+    <img src="notification.png" style="float:right;">
+    <p>Of course, my phone is rooted so it can turn on/off the GPS & cell data as needed. This also has the advantage of conserving battery by turning these
+      off when I get home.</p>
+    <p>It presents an Android notification with information on the current state of the app. This has a button to stop the app, and another button to toggle
+      closing the door afterwards.</p>
+    <h3>Security</h3>
+    <p>Obviously the garage door needs to be secure. You need to keep people from "sniffing" the protocol and otherwise hacking things to gain entry.</p>
+    <p>It's protected by SSL mutual authentication, where the phone and the server each present a certificate to the other to prove it's authorized. This turned
+    out to be the hardest part of the project.</p>
+    <p>I generate two certificates (one for the server and one for the phone) and corresponding private keys. You can install the app and certificates on
+      multiple phones so they all have access. These certificate act as digital keys.</p>
     <h3>Code</h3>
     <p>There's two pieces of code. One is the Android app. The source is an Android Studio project published in my
       <a href="https://github.com/CrashCash/GarageDoorApp" target="_blank">GitHub repository</a>.</p>
@@ -46,17 +51,9 @@
         <td>Screen to set up various user preferences.</td>
       </tr>
       <tr>
-        <td align="center" bgcolor="blue"><img src="app_stop.gif" style="height:100px;"></td>
-        <td>Stop the app and all the background services.</td>
-      </tr>
-      <tr>
         <td align="center" bgcolor="blue"><img src="app_status.gif" style="height:100px;"></td>
         <td>Show the status of the garage door, the beam sensor, and the back door.<br><br>
           I can also open and close the door from this screen, and "arm" it so that it will close the door after the beam is broken.</td>
-      </tr>
-      <tr>
-        <td align="center" bgcolor="blue"><img src="app_toggle.gif" style="height:100px;"></td>
-        <td>When the main app is running, toggle it from closing the door afterwards, to not closing the door.</td>
       </tr>
     </table>
     <p>The other is a server written in Java, running on the Raspberry Pi. The source is a NetBeans project published in my
@@ -77,9 +74,9 @@
       use a <a href="https://github.com/CrashCash/GarageDoorServerInit" target="_blank">SysV-style init script</a> to start the server at boot.</p>
     <h3>Local network setup</h3>
     <p>I assigned the Raspberry Pi a reserved DHCP address so it would stay at the same IP and a port could be forwarded to it.</p>
-    <p>I opened two ports in the firewall for external access and forwarded them to the Raspberry Pi's address. This lets the phone connect over the internet.</p>
+    <p>I opened a port in the firewall for external access and forwarded them to the Raspberry Pi's address. This lets the phone connect over the internet.</p>
     <p>I had to determine the external (i.e. "WAN") IP address of my firewall, which is the address entered in the setup screen. The world sees my firewall at
-      this IP, so this is the address the phone needs to connect to.</p>
+      this IP, so this is the address to which the phone needs to connect.</p>
     <table borders="0" width="100%">
       <tr><td>
           <img src="sensor.jpg" style="float:right;height:320px;width:278px;">
@@ -93,25 +90,19 @@
       </td></tr>
     </table>
     <h3>Connecting the Pi to the garage door opener</h3>
-    <p>This gets complicated.</p>
     <p>There are a ton of sensors wired up, and each one has the sense wire and a ground wire. There's only one ground connection on the PiFace Digital board,
-      so I used a "ground block" to manage things. This is just a terminal block where all the terminals are connected together.</p>
+      so I used a ground block to manage things. This is just a terminal block where all the terminals are connected together.</p>
     <p>One of the relays on the PiFace board is connected to the opener simulating a button. This is what actually opens and closes the door.</p>
-    <p>The Pi is mounted on standoffs on a piece of corrugated plastic, which is fastened to the wall.</p>
+    <p>The Pi is mounted on standoffs on a piece of corrugated plastic, which is fastened to the wall. Now that I have a 3D printer, I should print an enclosure
+      and upgrade to twisted-pair wire for RFI rejection.</p>
     <img src="wiring.jpg">
     <h3>Sensing door position</h3>
     <p>There are two <a href="https://en.wikipedia.org/wiki/Reed_switch" target="_blank">reed switches</a>, rather crudely mounted on a plastic plate, one at
       each end of the opener rail. I added magnets to the rail slider to trigger these switches. This is how the Pi tells if the door is open or closed.</p>
     <p>Note in the picture that there's an extra set of reed switches. These are used by the garage door motor itself to tell when it's reached the end of its
-      travel and should stop running. The original mechanism it used broke decades ago.</p>
+      travel and should stop running. The original mechanism it used failed long ago, and was the original impetus for this project.</p>
     <p>I also have a reed switch & magnet on the back door to the garage, so I can tell remotely if it's closed or not, in the status app.</p>
     <img src="reed.gif">
-    <h3>Security</h3>
-    <p>Obviously the garage door needs to be secure. You need to keep people from "sniffing" the protocol and otherwise hacking things to gain entry.</p>
-    <p>It's protected by SSL mutual authentication, where the phone and the server each present a certificate to the other to prove it's authorized. This turned
-    out to be the hardest part of the project.</p>
-    <p>I generate two certificates (one for the server and one for the phone) and corresponding private keys. You can install the app and certificates on
-      multiple phones so they all have access. These certificate act as digital keys.</p>
     <h3>Why don't I use the Google Play Geofencing API?</h3>
     <p>It doesn't work. I tried all the tutorials and none of them ever triggered. Also, by doing my own code, I can control the GPS update rate and power
       consumption, and ensure that it's closely monitoring things when I'm near home, so the door opens promptly, and I'm not sitting there waiting for the phone

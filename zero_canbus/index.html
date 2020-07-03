@@ -2,7 +2,7 @@
   <head>
     <title>Zero Motorcycles CANBUS information</title>
     <style>
-      .home { position: fixed; top: 10px; right: 10px; }
+      .home { position: fixed; top: 0px; right: 10px; }
       li { margin-bottom: 10px; }
       span.white { background-color: white; text-decoration: underline overline }
       span.grey { background-color: lightgrey; text-decoration: underline overline }
@@ -13,36 +13,41 @@
   </head>
   <body>
     <a href="https://crashcash.github.io/" class="home">Home</a>
+    <div style="float: right;">Last update: 03-JUL-2020 01:44:02 PM</div>
     <h1>Zero Motorcycles CANBUS information</h1>
     <p>I went to Daytona during Bike Week on my 2015 SR.<br>
       I found out that the bike would make it from Orlando to Daytona without charging, which was a surprise.<br>
-      This was a surprise because I stop to charge the bike far more often than I need to, since I don't really have a mental handle on the range versus distance
-      to the things I'm interested in.</p>
+      This was a surprise because I stop to charge the bike far more often than I need to, since I don't really have a mental handle on the
+      range versus distance to the things I'm interested in.</p>
     <p>The range *says* I can get to Daytona. Does it mean it? Can I trust it? It would be nice if I had real-time feedback.</p>
     <p>I figured I needed to write an Android app to display a map with a range circle continuously updated from the bike.<br>
       This meant I needed to buckle down and decode the CANBUS data, if possible.</p>
-    <p>I managed to decode not only the range, but also the speed, mode selected (sport/eco/custom), motor temp, motor RPM, and the error number(s) on dash.</p>
-    <p>CANBUS is available on the OBD-II connector located above and behind the motor next to the accessory charging port, on the right-hand side.<br>
+    <p>I managed to decode not only the range, but also the speed, mode selected (sport/eco/custom), motor temp, motor RPM, and the error
+    number(s) on dash.</p>
+    <p>CANBUS is available on the OBD-II connector located above and behind the motor next to the accessory charging port, on the right-hand
+      side.<br>
       On my 2015, it's buried deep in there. It's like birthing a cow. On the newer models, it's under the seat.</p>
     <p>I've written an Android application and the source is available on <a href="https://github.com/CrashCash/BatteryRange" target="_blank">GitHub</a> as an
       Android Studio project.</p>
     <h3>Installation</h3>
     <ul>
       <li>
-        Bolt <a href="http://copperhilltech.com/pican2-duo-can-bus-board-for-raspberry-pi-2/" target="_blank">PiCAN 2 Duo board</a> ($70) to Raspberry Pi<br>
-        I should have actually used a plain <a href="http://copperhilltech.com/pican-2-can-interface-for-raspberry-pi/" target="_blank">PiCan 2</a> for $47 and
-        ended up with a nice DB-9 connector to plug directly to the SparkFun cable.
+        Bolt <a href="http://copperhilltech.com/pican2-duo-can-bus-board-for-raspberry-pi-2/" target="_blank">PiCAN 2 Duo board</a> ($70) to
+        Raspberry Pi<br>
+        I should have actually used a plain <a href="http://copperhilltech.com/pican-2-can-interface-for-raspberry-pi/" target="_blank">PiCan 2</a>
+        for $47 and ended up with a nice DB-9 connector to plug directly to the SparkFun cable.
       </li>
       <li>
-        I'm not going to go into much detail on the Raspberry Pi stuff because there's tons of tutorials that explain things far better than I can.<br>
+        I'm not going to go into much detail on the Raspberry Pi stuff because there's tons of tutorials that explain things far better than
+        I can.<br>
         Also, since my desktop environment is Debian Linux, I don't how you would do things like ssh or scp in Windows.
       </li>
       <li>
         Install Raspbian Jessie Lite on the SD card.<br>
         Note that ssh is now disabled by default, as per
         <a href="https://www.raspberrypi.org/blog/a-security-update-for-raspbian-pixel/" target="_blank">https://www.raspberrypi.org/blog/a-security-update-for-raspbian-pixel/</a><br>
-        To enable ssh, loopback-mount the image on your Linux box, and put a file named "ssh" in the /boot directory on the VFAT partition. This enables it for
-        the next boot only, so be sure to immediately enable ssh permanently through raspi-config.
+        To enable ssh, loopback-mount the image on your Linux box, and put a file named "ssh" in the /boot directory on the VFAT
+        partition. This enables it for the next boot only, so be sure to immediately enable ssh permanently through raspi-config.
       </li>
       <li>
         Hook the Raspberry Pi up to USB power and your ethernet, boot it up and enable ssh through raspi-config.
@@ -64,10 +69,11 @@
       <li>Edit /etc/wpa_supplicant/wpa_supplicant.conf and add the wi-fi info for your network as per
         <a href="https://www.raspberrypi.org/documentation/configuration/wireless/wireless-cli.md" target="_blank">https://www.raspberrypi.org/documentation/configuration/wireless/wireless-cli.md</a><br>
         This is so you can ssh into it when it's in your saddlebag and not physically connected to your ethernet.<br>
-        I also added an entry for the portable hotspot on my Android phone, so I could communicate with it when I was away from my home network.<br>
+        I also added an entry for the portable hotspot on my Android phone, so I could communicate with it when I was away from my home
+        network.<br>
         I use the ConnectBot app to ssh to the Raspberry Pi from the phone.<br>
-        Note that when you're using the Android portable hotspot, you can use the "arp" command on the phone (or look at /proc/net/arp) to see the IP addresses
-        of attached devices like the Pi, so you know where to ssh.
+        Note that when you're using the Android portable hotspot, you can use the "arp" command on the phone (or look at /proc/net/arp) to
+        see the IP addresses of attached devices like the Pi, so you know where to ssh.
       </li>
       <li>Fetch test software<br>
         <code>
@@ -87,9 +93,10 @@
         You can get the <a href="https://www.sparkfun.com/products/10087" target="_blank">SparkFun OBD-II to DB-9 Cable p/n CAB-10087</a> for $10<br>
         I just cut the DB-9 off the cable and toned the wires with the DMM continuity function to find pins 6 (red wire) & 14 (yellow wire)
       </li>
-      <li>Throw the Raspberry Pi in a saddlebag, and connect the USB power either to a portable battery, or to a USB converter in the "cigarette lighter" jack.<br>
-        If you use the bike power jack, then you must ssh to the Raspberry Pi and shut it down gracefully using "poweroff" before turning the bike off, or you
-        can corrupt the SD card.
+      <li>Throw the Raspberry Pi in a saddlebag, and connect the USB power either to a portable battery, or to a USB converter in the
+        "cigarette lighter" jack.<br>
+        If you use the bike power jack, then you must ssh to the Raspberry Pi and shut it down gracefully using "poweroff" before turning
+        the bike off, or you can corrupt the SD card.
       </li>
     </ul>
     <h3>Using candump</h3>
@@ -141,15 +148,15 @@
     You can also visually monitor data in real time with cansniffer.
     <h3>Useful information</h3>
     <p>The command "<code>awk '{ print $2 }' dump.txt | sort | uniq</code>" shows the following PIDs repeat continously in "sets":<br>
-      0x080, 0x181, 0x188, 0x189, 0x1C0, 0x240, 0x281, 0x288, 0x289, 0x2C0, 0x308, 0x309, 0x340, 0x381, 0x388, 0x389, 0x3C0, 0x408, 0x409, 0x440, 0x481, 0x488,
-      0x489, 0x501, 0x506, 0x508, 0x509, 0x540, 0x701</p>
+      0x080, 0x181, 0x188, 0x189, 0x1C0, 0x240, 0x281, 0x288, 0x289, 0x2C0, 0x308, 0x309, 0x340, 0x381, 0x388, 0x389, 0x3C0, 0x408, 0x409,
+      0x440, 0x481, 0x488, 0x489, 0x501, 0x506, 0x508, 0x509, 0x540, 0x701</p>
     <p>The brake switches do not appear to be connected to the CANBUS. Nothing seems to change in candump/cansniffer.</p>
     <p>Note that when you spin the rear wheel, the speed & motor RPM both update on the dashboard.<br>
       Speed is probably calculated from RPM based on the sprocket sizes (belt reduction) and nominal tire circumference.</p>
-    <p>I wrote <a href="print_range" target="_blank">print_range</a> to run on the Raspberry Pi from the phone, so I could display the range from CANBUS while I
-      rode, and confirm it matched the dashboard.<br>
-      That is, I enabled the Android portable wi-fi hotspot, ssh-ed into the Raspberry Pi from the phone, and ran print_range. This continuously prints output,
-      and I could then mount the phone on the bike with the RAM mount and ride down the road.<br>
+    <p>I wrote <a href="print_range" target="_blank">print_range</a> to run on the Raspberry Pi from the phone, so I could display the range
+      from CANBUS while I rode, and confirm it matched the dashboard.<br>
+      That is, I enabled the Android portable wi-fi hotspot, ssh-ed into the Raspberry Pi from the phone, and ran print_range. This
+      continuously prints output, and I could then mount the phone on the bike with the RAM mount and ride down the road.<br>
       This is also an example of how to fetch and decode CANBUS data in a Python script.</p>
     <p>There is different traffic when the bike is charging, but I didn't look at that much.</p>
     <h3>How I figured out which bytes meant what values:</h3>
@@ -172,19 +179,21 @@
         78.7,86<br>
         ...</code></li>
       <li>I imported this into a spreadsheet and charted it.</li>
-      <li>I wrote <a href="gen_graphs" target="_blank">gen_graphs</a> to graph all the single and double-byte representations of every possible slice of the
-        data for each PID from the candump output.<br>
-        Originally it generated both the little-endian and big-endian words, before I knew the word order. I later modified it to produce signed output.</li>
+      <li>I wrote <a href="gen_graphs" target="_blank">gen_graphs</a> to graph all the single and double-byte representations of every
+        possible slice of the data for each PID from the candump output.<br>
+        Originally it generated both the little-endian and big-endian words, before I knew the word order. I later modified it to produce
+        signed output.</li>
       <li>I compared the chart with all of the generated graphs until I found one where the shape matched.<br>
         I discovered it was a two-byte value, and this also told me the data was "little-endian" (the least-significant byte is first)</li>
-      <li>It took a while to realize the units are metric because my original data was in miles. When I divided it by 161 and it matched, I was wondering why
-        the weird constant, then I remembered that there's 1,609 meters in a mile and figured out it was metric.</li>
+      <li>It took a while to realize the units are metric because my original data was in miles. When I divided it by 161 and it matched, I
+        was wondering why the weird constant, then I remembered that there's 1,609 meters in a mile and figured out it was metric.</li>
     </ol>
     <p>For some parameters, I obtained them from the Zero smartphone app using a different procedure.</p>
-    <p>I installed "Screen Recorder - Free No Ads" which let me record a video of the Zero app running, and I split the video into an image every second, as above.</p>
-    <p>Instead of having to laboriously enter numbers I was able to use optical character recognition to convert the frames directly into numbers. To determine
-      the location of the digits for the "ocrad" OCR program, I used the GIMP selection tool by simply editing one of the frames, selecting the area, and reading
-      the pixel numbers from the tool properties.</p>
+    <p>I installed "Screen Recorder - Free No Ads" which let me record a video of the Zero app running, and I split the video into an image
+      every second, as above.</p>
+    <p>Instead of having to laboriously enter numbers I was able to use optical character recognition to convert the frames directly into
+      numbers. To determine the location of the digits for the "ocrad" OCR program, I used the GIMP selection tool by simply editing one of
+      the frames, selecting the area, and reading the pixel numbers from the tool properties.</p>
     <p>This allowed me to write the following BASH script:</p>
     <code>
      <pre>

@@ -2,36 +2,39 @@
   <head>
     <title>Installing a Bluetooth OBD-II dongle on a Zero Motorcycle</title>
     <style>
-      .home { position: fixed; top: 10px; right: 10px; }
+      .home { position: fixed; top: 0px; right: 10px; }
       li { margin-bottom: 10px; }
     </style>
   </head>
   <body>
     <a href="https://crashcash.github.io/" class="home">Home</a>
+    <div style="float: right;">Last update: 03-JUL-2020 01:41:56 PM</div>
     <h1>Installing a Bluetooth OBD-II dongle on a Zero Motorcycle</h1>
     <h3>Introduction</h3>
     <p>My Zero SR electric motorcycle broadcasts the current range on the CANBUS, and I have a <a href="../zero_canbus/index.html" target="_blank">page</a>
       describing the format.</p>
-    <p>The CANBUS is available on the OBD-II diagnostic port, and there are small "dongles" that capture and filter this information, and transmit it over USB,
-      Wi-Fi, or Bluetooth. They all use an <a href="https://www.elmelectronics.com/ic/elm327/?v=7516fd43adaa" target="_blank">ELM327 chip, which has a standard
-      programming API</a>.</p>
+    <p>The CANBUS is available on the OBD-II diagnostic port, and there are small "dongles" that capture and filter this information, and
+      transmit it over USB, Wi-Fi, or Bluetooth. They all use an <a href="https://www.elmelectronics.com/ic/elm327/?v=7516fd43adaa" target="_blank">ELM327
+      chip, which has a standard programming API</a>.</p>
     <p>Unfortunately, Zero does not supply power to pin 16 as per the standard, so they don't work.</p>
     <p>Making things even more difficult is the fact that the port is in a location where it's impossible to work with it.</p>
     <p>I've written an Android application to display range from the dongle, and the source is available on
       <a href="https://github.com/CrashCash/BatteryRange" target="_blank">GitHub</a> as an Android Studio project.</p>
     <h3>Selecting a dongle</h3>
     <p>There are dozens of brands available on Amazon. Most of them are unsecure cheap Chinese knockoffs.</p>
-    <p>For example, I bought a "Kitbest", which has absolutely no security. Anyone standing nearby can pair with it and gain access to the internal systems of
-      the bike. It has no status or activity lights. It also has a counterfeit ELM327 chip, and announces a version number that ELM Electronics has never made,
-      plus it doesn't understand several of the standard API commands. It was good for testing my code, though.</p>
-    <p>The dongle I selected was the <a href="https://www.scantool.net/obdlink-lxbt/" target="_blank">ScanTool 427201 OBDLink LX Bluetooth</a>. It has good
-      security, where you must press a physical button and it will only pair for a limited time. It has status and activity LEDs to help debug issues. Another
-      feature is a sleep function, where it powers down to avoid draining the vehicle's battery. This isn't quite so important in our application since it will
-      be on a switched power supply.</p>
+    <p>For example, I bought a "Kitbest", which has absolutely no security. Anyone standing nearby can pair with it and gain access to the
+      internal systems of the bike. It has no status or activity lights. It also has a counterfeit ELM327 chip, and announces a version
+      number that ELM Electronics has never made, plus it doesn't understand several of the standard API commands. It was good for testing
+      my code, though.</p>
+    <p>The dongle I selected was the <a href="https://www.scantool.net/obdlink-lxbt/" target="_blank">ScanTool 427201 OBDLink LX Bluetooth</a>. It
+      has good security, where you must press a physical button and it will only pair for a limited time. It has status and activity LEDs to
+      help debug issues. Another feature is a sleep function, where it powers down to avoid draining the vehicle's battery. This isn't quite
+      so important in our application since it will be on a switched power supply.</p>
     <h3>Relocating the OBD-II port</h3>
-    <p>Owners of 2017 and newer Zeros are lucky, as the port is now located under the seat. They might also have power on pin 16. You can visually tell if
-      there's a pin there or not. You can also see if the dongle lights up.</p>
-    <p>Older bikes have it located in an almost inaccessible location, and you need to move it in order to add the power pin. Here is the procedure I used:</p>
+    <p>Owners of 2017 and newer Zeros are lucky, as the port is now located under the seat. They might also have power on pin 16. You can
+      visually tell if there's a pin there or not. You can also see if the dongle lights up.</p>
+    <p>Older bikes have it located in an almost inaccessible location, and you need to move it in order to add the power pin. Here is the
+      procedure I used:</p>
     <ul>
       <li>Remove the rear tire hugger.<br>
         Remove 4 socket head bolts.<br>
@@ -42,23 +45,24 @@
         Weapons of choice: 3/8" ratchet, 10mm socket, 13mm socket, 13mm combo wrench, 5mm hex key.</li>
       <li>Unbolt the OBD-II connector. Don't let the cap screws magically disappear.<br>
         Weapons of choice: 3/8" ratchet, extra long 17" extension, 4mm long-reach ball-end hex socket.</li>
-      <li>You can now clip off the mounting ears with a pair of dikes, and duct tape it to the cable to make it as small as possible, so it'll fit through the
-        mess of cables.</li>
+      <li>You can now clip off the mounting ears with a pair of dikes, and duct tape it to the cable to make it as small as possible, so
+        it'll fit through the mess of cables.</li>
       <li>Now ease the connector up the right side of the bike. I was fortunate to have a small cavity in the cables and wiring there.</li>
     </ul>
     <h3>Getting power to the port</h3>
     <p>Order a pair of "Fotag" J1962 female OBD-II sockets from Amazon.
       <a href="https://www.amazon.com/dp/B01ETRIDUI" target="_blank">https://www.amazon.com/dp/B01ETRIDUI</a></p>
     <img src="OBD-II_socket.jpg">
-    <p>This is the same connector as the stock one. You won't need the actual connector, but you will need one of the pins and one of the blue retainer clips.</p>
-    <p>This has an unusual pin retention design. Instead of the usual barbs on each pin, it has two blue clips that slide in to hold each row of pins. To insert
-      another pin, you'll need to pry out one of these clips from the stock connector, which will destroy it.</p>
+    <p>This is the same connector as the stock one. You won't need the actual connector, but you will need one of the pins and one of the
+      blue retainer clips.</p>
+    <p>This has an unusual pin retention design. Instead of the usual barbs on each pin, it has two blue clips that slide in to hold each
+      row of pins. To insert another pin, you'll need to pry out one of these clips from the stock connector, which will destroy it.</p>
     <p>Strip about 1/4" from the end of a piece of 18-gauge wire, and crimp one of the pins to it.</p>
     <p>Insert the pin into position #16 in the proper orientation (see photo)</p>
     <img src="pin.jpg">
     <p>Slide a new blue clip in, until it locks into place.</p>
-    <p>Hook the other end of the wire to the lowest amperage fusebox line using a Scotchlok tap. I would have much rather used the SAE accessory plug, but it's
-      on a different isolated circuit, and doesn't reference the same ground as the data signal.</p>
+    <p>Hook the other end of the wire to the lowest amperage fusebox line using a Scotchlok tap. I would have much rather used the SAE
+      accessory plug, but it's on a different isolated circuit, and doesn't reference the same ground as the data signal.</p>
     <img src="img_1494.jpg"><img src="img_1488.jpg">
   </body>
 </html>

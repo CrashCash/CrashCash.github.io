@@ -1,25 +1,35 @@
-$fs=0.01;
-$fa=1;
+// print with 10% rectilinear infill
+
+$fa=3;
+$fs=0.25;
 
 thick=3;
-radius_corner=6.35;    // 1/4"
-radius_thumb=2;        // 1/8"
-radius_hole=20.6375/2; // 7/8"
-inset_thumb=6.35;      // 1/4"
-inset_hole=12.7;       // 1/2"
-width=50.8;            // 2"
+width=50;
+corner_radius=8;
+hole_dia=20.6375;
+hole_inset=15;
+thumb_dia=5;
+thumb_inset=6.5;
 
-d=width/2-radius_corner;
+d=width/2-corner_radius;
 
 difference() {
-     hull() {
-          translate([-d, radius_corner, 0]) cylinder(h=thick, r=radius_corner);
-          translate([d, radius_corner, 0]) cylinder(h=thick, r=radius_corner);
-          translate([-d, width-radius_corner, 0]) cylinder(h=thick, r=radius_corner);
-          translate([d, width-radius_corner, 0]) cylinder(h=thick, r=radius_corner);
-     }
-     // large hole
-     translate([0, inset_hole, -1]) cylinder(h=thick+2, r=radius_hole);
-     // thumbscrew hole
-     translate([0, width-inset_thumb, -1]) cylinder(h=thick+2, r=radius_thumb);
+  hull() {
+    translate([-d, corner_radius, 0])
+      cylinder(h=thick, r=corner_radius);
+    translate([d, corner_radius, 0])
+      cylinder(h=thick, r=corner_radius);
+    translate([-d, width-corner_radius, 0])
+      cylinder(h=thick, r=corner_radius);
+    translate([d, width-corner_radius, 0])
+      cylinder(h=thick, r=corner_radius);
+  }
+  // large hole
+  translate([0, hole_inset, -1]) {
+    cylinder(h=thick+2, d=hole_dia);
+  }
+  // thumbscrew hole
+  translate([0, width-thumb_inset, -1]) {
+    cylinder(h=thick+2, d=thumb_dia);
+  }
 }

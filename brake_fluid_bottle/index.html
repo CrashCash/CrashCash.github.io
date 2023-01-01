@@ -29,14 +29,6 @@
       - and the Italian and German ones I've run into as well.</p>
     <p>Open the valve. As the fluid drops below the barb, air bubbles into the bottle, which releases fluid to raise the level back up to
       the bottom of the barb. It's the same principle as Harbor Freight or Mityvac bottles, but it <i>actually works.</i></p>
-    <div style="border-radius: 25px; border: 5px solid #73AD21; padding: 10px;">
-      <p><b>Update 29-DEC-2021:</b> I found
-        <a target="_blank" href="https://www.masontops.com/collections/storage-solutions/products/tough-tops-leak-proof-reusable-mason-jar-storage-lids-wide-mouth">"Tough Tops"</a>
-        from <a target="_blank" href="masontops.com">masontops.com</a> at the local Publix. These are heavy-duty plastic one-piece mason jar
-        tops with a nice silicone seal and a "premarked center" for drilling. They don't require a washer for reinforcement, and they aren't
-        affected by brake fluid.</p>
-      <img src="tough_tops.webp">
-    </div>
     <h1>Required PC water cooling parts:</h1>
     <p>I bought mine from <a target="_blank" href="http://www.performance-pcs.com/">Performance PCs</a> so I will use their prices and part
       numbers. Except for the ball valve, they're generic parts.</p>
@@ -85,20 +77,24 @@
         <td>
           3D-print the mount plate using the <a href="brake_fluid_plate.stl">brake_fluid_plate.stl</a> (created from
           <a href="brake_fluid_plate.scad">brake_fluid_plate.scad</a>)<br>
-          I used PETG filament on an original Prusa i3 MK3 printer. PLA and ABS aren't compatible with brake fluid.<br>
+          I used PETG filament on an original Prusa i3 MK3 printer. PLA and ABS aren't really compatible with brake fluid.<br>
           You can also make it out of a piece of aluminum using <a target="_blank" href="dimensions.png">these dimensions</a>.
         </td>
       </tr>
       <tr>
-        <td align="center"><img src="washers.jpg"></td>
+        <td align="center"><img src="tough_tops.webp"></td>
         <td>
-          5/8&quot; flat washers to reinforce the thin sheet-metal lid.
+          A box of "<a target="_blank" href="https://www.masontops.com/collections/storage-solutions/products/tough-tops-leak-proof-reusable-mason-jar-storage-lids-wide-mouth">Tough Tops</a>"
+        from <a target="_blank" href="https://masontops.com">masontops.com</a> at the local Publix. These are heavy-duty plastic one-piece mason jar
+        tops with a nice silicone seal and a "premarked center" for drilling. They don't require a washer for reinforcement, and they aren't
+        affected by brake fluid.
         </td>
       </tr>
       <tr>
         <td align="center"><img src="mason_jars.jpg"></td>
         <td>
-          Some pint size standard-mouth smooth Mason jars and lids.<br>
+          Some pint size standard-mouth smooth Mason jars.<br>
+          Do not get the quart size jars, or the large-mouth jars. They're too big and heavy.<br>
           Do not get Ball jars. They have all sorts of decorations that cause problems with cracking, including their "smooth" ones.<br>
           I got Anchor-Hocking jars, which are truly smooth and are available in 6-packs at my local Publix.
         </td>
@@ -114,50 +110,46 @@
     <h1>Bottle Assembly:</h1>
     <table cellpadding="4">
       <tr valign="center">
-        <td align="right"><img src="center.jpg"></td>
-        <td>
-          Find the center of the lid. There's hundreds of
-          <a target="_blank" href="https://www.manmadediy.com/how-to-find-center-circle/">Google results</a>
-          on how to do this.</td>
-      </tr>
-      <tr valign="center">
         <td align="right"><img src="drill.jpg"></td>
         <td>
           Drill the center with a step bit (also known as a unibit) to accept the bulkhead fitting. This is the best way to cut the thin
-          sheet metal of the lid.<br><br>
-          After you cut the hole, flip the lid over and lightly touch the bit to the metal to remove the sharp burr.
+          plastic of the lid.<br><br>
+          After you cut the hole, flip the lid over and lightly touch the bit to the plastic to remove any sharp burrs.
         </td>
       </tr>
       <tr valign="center">
         <td align="right">
           <img src="bulkhead1.jpg"><br>
-          <img src="bulkhead2.jpg"></td>
+          <img src="bulkhead2.jpg">
         <td>
-          Put the washer and the lid in the bulkhead fitting. The washer is structural reinforcement for the thin sheet metal lid.<br><br>
-          The bulkhead fitting comes with 2 o-rings. The nut has a flat side with a small recess meant to capture the o-ring. Make sure this
-          nut is oriented properly.<br><br>
+          Put the bulkhead fitting in the lid. The bulkhead fitting comes with 2 o-rings. The nut has a flat side with a small recess meant
+          to capture the o-ring. Make sure this nut is oriented properly.<br><br>
           Do not overtighten, as you don't want to squash the o-rings. Nothing should be beyond finger-tight.
+        </td>
+      </tr>
+      <tr valign="center">
+        <td align="right"><img src="coupling1.jpg"></td>
+        <td>
+          Screw a nozzle coupling adapter on the bulkhead fitting.
         </td>
       </tr>
       <tr valign="center">
         <td align="right"><img src="valve.jpg"></td>
         <td>
-          Screw a nozzle coupling adapter on the bulkhead fitting, and screw the ball valve to that.
+          Screw the ball valve to the coupling.
+        </td>
+      </tr>
+      <tr valign="center">
+        <td align="right"><img src="coupling2.jpg"></td>
+        <td>
+          Screw the other nozzle coupling adapter onto the other end of the ball valve.
         </td>
       </tr>
       <tr valign="center">
         <td align="right"><img src="passthru.jpg"></td>
         <td>
-          Screw the other nozzle coupling adapter onto the other end of the ball valve, screw the pass-through onto that, and remove the
-          collar.
-        </td>
-      </tr>
-      <tr valign="center">
-        <td align="right"><img src="plate.jpg"></td>
-        <td>
-          Place the support plate on the pass-through and screw the collar back down.<br><br>
-          Thread the thumbscrew into the other hole in the plate.<br><br>
-          Install the barb fitting.
+          Screw pass-through onto the coupling, and remove the collar. You're now ready to either attach the plate for the front brakes, or
+          the barb with a hose for the rear brakes.
         </td>
       </tr>
     </table>

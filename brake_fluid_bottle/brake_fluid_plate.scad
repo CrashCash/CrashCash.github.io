@@ -2,6 +2,7 @@
 
 $fa=3;
 $fs=0.25;
+epsilon=0.01;
 
 thick=3;   // limited by valve body threads
 width=50;

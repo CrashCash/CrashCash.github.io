@@ -1,0 +1,120 @@
+<html>
+  <head>
+    <title>Tracer 9 GT+ software update file format</title>
+    <style>
+      .home { position: fixed; top: 0px; right: 10px; }
+    </style>
+  </head>
+  <body>
+    <a href="https://crashcash.github.io/" class="home">Home</a>
+    <h1>Tracer 9 GT+ software update file format</h1>
+    You can obtain software updates for your Yamaha Tracer from:<br>
+    <a href="https://www.yamaha-motor.eu/kv/en/service-support/connectivity/ccu-updates/" target="_blank">https://www.yamaha-motor.eu/kv/en/service-support/connectivity/ccu-updates/</a><br>
+    <br>
+    This is a zip file, similar to a Java JAR.<br><br>
+    After I updated my bike, <a href="006-B3195-00.update.log" target="_blank">006-B3195-00.update.log</a> was created, as well as an
+    empty "006-B3195-00.stale.cookie" file. The USB key was mounted on /run/media/sda1. The "App" selection was greyed
+    out until turned the bike off and on again.<br><br>
+    It has a "manifest.xml" file with the SHA256 hash of the other files, and a "type" field, which is "rootfs" or
+    "raw". If the type is "raw", it also has "device" and "offset" fields. The devices are "/dev/mmcblk0" and
+    "/dev/mmcblk0boot0"<br>
+    The "product" is "yamaha-lyww20" and lyww20 is Yamaha's part number for the Tracer 9 GT+<br>
+    If you google this, you get "Garmin Communication Control Unit LYWW20" which apparently a "motorcycle link box" that
+    does Bluetooth and Wi-Fi using a Marvell chipset<br><br>
+    The "productNumber" is "006-B3195-00" which matches the filename, and the "type" is "FullSWUpdate"<br>
+    The "newSwVersion" is what is displayed on the dash, and must be a number with 2 decimal places.
+    <pre>
+      &lt;?xml version="1.0" ?&gt;
+      &lt;manifest metadataVersion="4"&gt;
+        &lt;!--Update Metadata--&gt;
+        &lt;updateInfo newSwVersion="2.40" product="yamaha-lyww20" productNumber="006-B3195-00" type="FullSWUpdate"/&gt;
+        &lt;file name="gear-image-garmin-sta1295-lawrence-lyww20.ext4" sha256="a86f88cc1077c355fbd86835dbc0152d934194163de41c0a19f16466b526787c" type="rootfs"/&gt;
+        &lt;file device="/dev/mmcblk0boot0" name="m3_xloader.bin.xl1" offset="0x00000000" sha256="7a38cf1ec39ff5d60a5c4ef36eceb704df062a0aeb855b4937f2d23b979be3b1" type="raw"/&gt;
+        &lt;file device="/dev/mmcblk0boot0" name="m3_xloader.bin" offset="0x00000040" sha256="ae87bb60f833e8fcb4f26e3a34f4252f9eeb7275fd03151c7f8d728db2664fe8" type="raw"/&gt;
+        &lt;file device="/dev/mmcblk0" name="garmin-sta1295-lawrence-lyww20-uboot-env.txt.bin" offset="0x00004400" sha256="63114772c52ff60e679ee30164747577567b98e0aca64fe1faa4d8008f16c7ab" type="raw"/&gt;
+        &lt;file device="/dev/mmcblk0" name="m3_car_radio.bin.xl1" offset="0x0000c400" sha256="75470b52d0585065a0ba580fb3128000098ac3a284bfa45452a2ef57db0af969" type="raw"/&gt;
+        &lt;file device="/dev/mmcblk0" name="m3_car_radio.bin" offset="0x0000c440" sha256="7630d9c47b06dc3f6d297646ff12e495069dea3e1f167ac9515a6bb1c987c23b" type="raw"/&gt;
+        &lt;file device="/dev/mmcblk0" name="u-boot.bin.xl1" offset="0x0004c400" sha256="47de0c85d24a978e25086b898c472719f490132104d330b46301da17b1a60140" type="raw"/&gt;
+        &lt;file device="/dev/mmcblk0" name="u-boot.bin" offset="0x0004c440" sha256="58082d7df1c31eda967d58a65f9e3153780ea3823c2cc8e5ea13292c5b903b88" type="raw"/&gt;
+        &lt;file device="/dev/mmcblk0" name="splash.rgb.xl1" offset="0x000cc400" sha256="6270d2a99b6aeb474393de4486b5f39e7d72005ee60acd3283e694d95ef9e3a5" type="raw"/&gt;
+        &lt;file device="/dev/mmcblk0" name="splash.rgb" offset="0x000cc440" sha256="83e10fa2327fabfd505e5c3079cadf9f5ef8ec36a5ef492c938d0c446ef1b388" type="raw"/&gt;
+      &lt;/manifest&gt;
+    </pre>
+    The garmin-sta1295-lawrence-lyww20-uboot-env.txt.bin file looks like a bootloader config file.
+    <pre>
+    console=console=tty0 consoleblank=0 console=ttyAMA3,115200n8
+    loadaddr=A0000000
+    loadzaddr=A1000000
+    kernel_image=/boot/uImage
+    verify=n
+    boardname=sta1295-lawrence-lyww20
+    fdtroot=/boot
+    boardrev=0
+    fdtfile=${fdtroot}/${boardname}.dtb
+    partfile=bootpart
+    mmcdev=1
+    mmcbootpart=1:1
+    mmcrootpartA=1:2
+    mmcrootpartB=1:3
+    mmcrootdevA=/dev/mmcblk0p2
+    mmcrootdevB=/dev/mmcblk0p3
+    mmcloadfdt=ext4load mmc ${mmcrootpart} ${fdtaddr} ${fdtfile}
+    mmcload=ext4load mmc ${mmcrootpart} ${loadzaddr} ${kernel_image}
+    mmcboot=echo Booting from MMC${mmcdev}...; run mmcargs; bootm ${loadzaddr} - ${fdtaddr}
+    mmcselect=mw.l ${loadzaddr} 0 1; load mmc ${mmcbootpart} ${loadzaddr} ${partfile} 1; if itest.s *${loadzaddr} == B; then setenv mmcrootpart ${mmcrootpartB}; setenv mmcrootdev ${mmcrootdevB}; else setenv mmcrootpart ${mmcrootpartA}; setenv mmcrootdev ${mmcrootdevA}; fi;
+    serial#=01010101
+    genfdtfilename=setenv fdtfile $fdtroot/$boardname-rev$boardrev.dtb;
+    bios_file=/lib/firmware/bios.bin
+    sbios_file=/lib/firmware/s-bios.bin
+    bios_addr=0xDFFD0000
+    sbios_addr=0xDFFC0000
+    bank=0
+    commonargs=ro rootwait earlyprintk quiet elevator=noop coherent_pool=4M
+    mmcargs=setenv bootargs ${console} root=${mmcrootdev} rootfstype=ext4 ${commonargs}
+    bootcmd=run mmc_setup falcon_setup; fb; run normal_boot
+    mmc_setup=mmc dev ${mmcdev}; run mmcselect
+    normal_boot=run mmcload genfdtfilename mmcloadfdt mmcboot
+    falcon_load=ext4load mmc ${mmcrootpart} ${bios_addr} ${bios_file}; ext4load mmc ${mmcrootpart} ${sbios_addr} ${sbios_file}
+    falcon_setup=run falcon_load; biosinit ${bios_addr} ${sbios_addr} ${bank}
+    fdtaddr=0xA0FE0000
+    </pre>
+    One of the files is a Linux ext4 filesystem image. This can be mounted with<br>
+    <code>mount -o ro,loop gear-image-garmin-sta1295-lawrence-lyww20.ext4 /mnt/temp</code><br><br>
+    This is an entire bootable Linux system, compiled for 32-bit Cortex-A7 ARM v7 hard-float processors (according to
+    <code>readelf -a /bin/bash</code>) with systemd, wayland, and mosquitto<br><br>
+    It seems to run a mosquitto MQTT message broker. I haven't been able to verify this.<br><br>
+    It looks like it uses Wayland for the display, which is a successor to X11 (X Windows)<br><br>
+    It has MiracleCast, which is probably how the Garmin navigation software displays on the bike. This is (rather
+    hostile) open source, so I might be able to write something to display on the bike.<br><br>
+    I was able to discover it has Gracenote media ID/metadata management software, and the FrogLogic Squish commercial
+    cross-platform GUI and regression testing tool installed in /opt, neither of which are mentioned in the software
+    licenses UI.
+    <h3>Interesting files:</h3>
+    <b>/opt/garmin/share/keys/ConsumerAOEM_Yamaha_LYWW20_EXT.x509</b><br>
+    This is the certificate that verifies the "manifest.sig" file in the update to ensure that it's been signed by
+    Yamaha. It's mentioned in the update log. This "manifest.sig" file is checked by the bike and the update immedately
+    fails if it doesn't match.<br>
+    To confirm this, extract the public key from X.509 certificate:<br>
+    <code>openssl x509 -in /mnt/temp/opt/garmin/share/keys/ConsumerAOEM_Yamaha_LYWW20_EXT.x509 -noout -pubkey >
+      ConsumerAOEM_Yamaha_LYWW20_EXT.pem</code><br>
+    Then verify it:<br>
+    <code>openssl dgst -verify ConsumerAOEM_Yamaha_LYWW20_EXT.pem -keyform pem -sha256 -signature manifest.sig -binary
+      manifest.xml</code><br>
+    This prints "Verified OK"<br><br>
+    If you wanted to sign a firmware file, it would probably be something like:<br>
+    <code>openssl dgst -sha256 -sign "your private key" -out manifest.sig  manifest.xml</code><br>
+    Of course, we don't have Yamaha's/Garmin's private key, so we can't sign firmware updates and have them accepted by
+    the bike.<br><br>
+    <b>/etc/garmin-part-number</b><br>
+    matches the manifest.xml productNumber<br><br>
+    <b>/etc/os-release</b><br>
+    ID="gear"<br>
+    NAME="Poky (Yocto Project Reference Distro)"<br>
+    VERSION="2.2.4 (morty)"<br>
+    VERSION_ID="2.2.4"<br>
+    PRETTY_NAME="Poky (Yocto Project Reference Distro) 2.2.4 (morty)"<br><br>
+    <b>/opt/garmin/share/hmi_k2/eula/copyrights-en_US.txt</b><br>
+    This is the same as the software licenses displayable through Applications &rArr; Settings &rArr; System &rArr;
+    Legal &rArr; 3rd party licenses in the bike's user interface.
+  </body>
+</html>
